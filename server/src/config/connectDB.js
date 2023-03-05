@@ -3,12 +3,11 @@ const { Sequelize } = require("sequelize");
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize("phongtro123", "root", null, {
   host: "localhost",
-  dialect:
-    "mysql" /* one of 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle' */,
+  dialect: "mysql",
   logging: false,
 });
 
-const connectDataBase = async () => {
+const connectDatabase = async () => {
   try {
     await sequelize.authenticate();
     console.log("Connection has been established successfully.");
@@ -17,4 +16,4 @@ const connectDataBase = async () => {
   }
 };
 
-export default connectDataBase;
+export default connectDatabase;

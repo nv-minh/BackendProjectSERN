@@ -5,13 +5,14 @@ export const getCategoriesSerivce = async () => {
   try {
     const response = await db.Category.findAll({
       raw: true,
+      attributes: ["code", "value"],
     });
-    resolve({
-      err: response ? 0 : 1,
-      msg: response ? "OK" : "Failed to get categories.",
-      response,
-    });
+    return {
+      success: response ? true : false,
+      message: response ? "OK" : "Failed to get categories.",
+      categories: response,
+    };
   } catch (error) {
-    reject(error);
+    console.log(error);
   }
 };

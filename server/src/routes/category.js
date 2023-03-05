@@ -1,8 +1,8 @@
-import express from "express";
-import * as controllers from "../controllers/category";
+import express from 'express'
+import * as controllers from '../controllers/category'
 
-const router = express.Router();
+const router = express.Router()
 
-router.get("/all", controllers.getCategories);
+router.get('/all', controllers.getCategories)
 
-export default router;
+export default router

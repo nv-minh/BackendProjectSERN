@@ -1,11 +1,12 @@
 import db from "../models";
 import bcrypt from "bcryptjs";
 import { v4 } from "uuid";
-import chothuematbang from "../data/chothuematbang.json";
-import chothuecanho from "../data/chothuecanho.json";
-import nhachothue from "../data/nhachothue.json";
-import chothuephongtro from "../data/chothuephongtro.json";
+import chothuematbang from "../../data/chothuematbang.json";
+import chothuecanho from "../../data/chothuecanho.json";
+import nhachothue from "../../data/nhachothue.json";
+import chothuephongtro from "../../data/chothuephongtro.json";
 import generateCode from "../ultis/generateCode";
+import { dataPrice, dataArea } from "../ultis/data";
 import { getNumberFromString, getNumberFromStringV2 } from "../ultis/common";
 require("dotenv").config();
 const dataBody = [
@@ -123,6 +124,7 @@ export const insertService = async () => {
         });
       });
     });
+    // console.log(provinceCodes);
     provinceCodes?.forEach(async (item) => {
       await db.Province.create(item);
     });
@@ -131,5 +133,25 @@ export const insertService = async () => {
     });
   } catch (error) {
     console.log(error);
+  }
+};
+export const createPricesAndAreas = async () => {
+  try {
+    dataPrice.forEach(async (item, index) => {
+      await db.Price.create({
+        code: item.code,
+        value: item.value,
+        order: index + 1,
+      });
+    });
+    dataArea.forEach(async (item, index) => {
+      await db.Area.create({
+        code: item.code,
+        value: item.value,
+        order: index + 1,
+      });
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
