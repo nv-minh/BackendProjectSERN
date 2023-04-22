@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logowithoutbg.png';
@@ -8,11 +8,19 @@ import path from '../../ultils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import Swal from 'sweetalert2';
+import { useSearchParams } from 'react-router-dom';
 
 const { FaPlusCircle } = icons;
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [params] = useSearchParams();
+  const headerRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (headerRef) {
+      headerRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [params.get('page')]);
 
   const { isLoggedIn } = useSelector((state: any) => state.auth);
   const goLogin = useCallback((flag: string) => {
@@ -23,7 +31,7 @@ const Header = () => {
     navigate(path.REGISTER, { state: { flag } });
   }, []);
   return (
-    <div className="w-[70%]">
+    <div ref={headerRef} className="w-[70%]">
       <div className="flex items-center justify-around w-full">
         <Link to={path.HOME}>
           <img src={logo} alt="logo" className="w-[240px] h-[70px] object-contain" />
@@ -31,20 +39,20 @@ const Header = () => {
         <div className="flex gap-1">
           <small className="pt-2">Phongtro123.com xin chào!</small>
           {!isLoggedIn && (
-            <Button
-              text="Đăng Nhập"
-              textColor="text-white"
-              bgColor="!bg-[#3961fb]"
-              onClick={() => goLogin('login')}
-            />
-          )}
-          {!isLoggedIn && (
-            <Button
-              text="Đăng Ký"
-              textColor="text-white"
-              bgColor="!bg-[#3961fb]"
-              onClick={() => goRegister('register')}
-            />
+            <>
+              <Button
+                text="Đăng Nhập"
+                textColor="text-white"
+                bgColor="!bg-[#3961fb]"
+                onClick={() => goLogin('login')}
+              />
+              <Button
+                text="Đăng Ký"
+                textColor="text-white"
+                bgColor="!bg-[#3961fb]"
+                onClick={() => goRegister('register')}
+              />
+            </>
           )}
           {isLoggedIn && (
             <Button

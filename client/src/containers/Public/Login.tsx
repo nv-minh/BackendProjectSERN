@@ -119,7 +119,7 @@ const Login = () => {
         <small className="text-[blue] hover:text-[red] cursor-pointer">
           Bạn Quên Mật Khẩu
         </small>
-        <NavLink to={path.REGISTER}>
+        <NavLink to={'/' + path.REGISTER}>
           <small className="text-[blue] hover:text-[red] cursor-pointer">
             Tạo Tài Khoản Mới
           </small>

@@ -5,6 +5,7 @@ import { persistReducer } from 'redux-persist';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
 import { IAuth } from '../../interface/Auth';
+import postReducer from './postReducer';
 
 const commonConfig = {
   storage,
@@ -20,6 +21,7 @@ const authConfig = {
 const rootReducer = combineReducers({
   auth: persistReducer<IAuth, any>(authConfig, authReducer),
   user: userReducer,
+  posts: postReducer,
 });
 
 export default rootReducer;

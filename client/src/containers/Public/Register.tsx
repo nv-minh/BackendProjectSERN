@@ -28,7 +28,6 @@ const Register = () => {
             message: 'Bạn không được bỏ trống trường này!',
           },
         ]);
-      console.log(invalidFields);
       invalid++;
     });
     fields.slice(1).forEach((field) => {
@@ -42,7 +41,6 @@ const Register = () => {
                 message: 'Mật khẩu phải có tối thiểu 6 kí tự!',
               },
             ]);
-            console.log(invalidFields);
             invalid++;
           }
           break;
@@ -117,7 +115,7 @@ const Register = () => {
         </small>
         <small className="flex hover:text-[red] cursor-pointer mt-5">
           Bạn đã có tài khoản ?{' '}
-          <NavLink to={path.LOGIN}>
+          <NavLink to={'/' + path.LOGIN}>
             <p className="text-[blue] ml-1"> Đăng nhập ngay</p>
           </NavLink>
         </small>

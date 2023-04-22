@@ -1,7 +1,22 @@
-import React from 'react';
-import { Button } from '../../components';
-import { ItemsNewpaper } from '../../components/index';
-const ListOfNewpapers = () => {
+import React, { useEffect, useRef } from 'react';
+import { Button, ItemsNewpaper } from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsLimit } from '../../store/actions/post';
+
+interface prop {
+  queryPage: string;
+}
+
+const ListOfNewpapers = (prop: prop) => {
+  const dispatch = useDispatch();
+  const { posts, count } = useSelector((state: any) => state.posts);
+  // const listRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    dispatch(getPostsLimit(+prop.queryPage) as unknown as any);
+    // if (listRef) {
+    //   listRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // }
+  }, [+prop.queryPage]);
   return (
     <div className="p-2">
       <div className="flex items-center justify-between ">
@@ -24,7 +39,23 @@ const ListOfNewpapers = () => {
         />
       </div>
       <div className="flex flex-col">
-        <ItemsNewpaper />
+        {posts?.length > 0 &&
+          posts.map((item: any) => {
+            const obj = JSON.parse(item.images.image);
+            return (
+              <ItemsNewpaper
+                key={item?.id}
+                images={obj}
+                address={item.address}
+                attributes={item.attributes}
+                title={item.title}
+                description={JSON.parse(item.description)}
+                user={item.user}
+                star={item.star}
+                id={item?.id}
+              />
+            );
+          })}
       </div>
     </div>
   );

@@ -11,3 +11,5 @@ export { default as HomePage } from './HomePage';
 export { default as Search } from './Search';
 export { default as ListOfNewpapers } from './ListOfNewpapers';
 export { default as SidebarOfPage } from './SidebarOfPage';
+export { default as Pagination } from './Pagination';
+export { default as DetailPost } from './DetailPost';
