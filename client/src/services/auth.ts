@@ -1,5 +1,5 @@
 import axiosConfig from '../axiosConfig';
-import { IUser } from '../interface/User';
+import { IUser } from '../interface';
 
 export const apiRegister = async (payload: IUser) => {
   try {

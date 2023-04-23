@@ -4,8 +4,10 @@ import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { persistReducer } from 'redux-persist';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
-import { IAuth } from '../../interface/Auth';
+import { IAuth } from '../../interface';
 import postReducer from './postReducer';
+import appReducer from './appReducer';
+import { RootStateAuth } from '../interface';
 
 const commonConfig = {
   storage,
@@ -19,9 +21,10 @@ const authConfig = {
 };
 // TODO: fix type action
 const rootReducer = combineReducers({
-  auth: persistReducer<IAuth, any>(authConfig, authReducer),
+  auth: persistReducer<RootStateAuth, any>(authConfig, authReducer),
   user: userReducer,
   posts: postReducer,
+  app: appReducer,
 });
 
 export default rootReducer;

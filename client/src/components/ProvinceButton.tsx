@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { IProVinceButton } from '../interface/ProvinceButtonProps';
+import { IProVinceButton } from '../interface';
 
 const ProvinceButton = ({ name, image }: IProVinceButton) => {
   return (

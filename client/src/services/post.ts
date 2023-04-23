@@ -6,6 +6,7 @@ export const apiGetAllPosts = async () => {
       method: 'get',
       url: '/api/v1/post/all',
     });
+
     return response;
   } catch (error) {
     return error;

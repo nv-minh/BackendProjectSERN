@@ -7,9 +7,10 @@ import { apiLogin } from '../../services/auth';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { useNavigate } from 'react-router';
-import { IUser } from './../../interface/User';
+import { IUser } from './../../interface';
 import { useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+
 const Login = () => {
   const [loginForm, setLoginForm] = useState({
     userName: '',

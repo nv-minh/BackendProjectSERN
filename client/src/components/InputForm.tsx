@@ -1,5 +1,5 @@
 import React, { memo, ChangeEvent } from 'react';
-import { IInputFormProps } from '../interface/InputFormProps';
+import { IInputFormProps } from '../interface';
 
 const InputForm = ({
   label,

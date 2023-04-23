@@ -6,7 +6,8 @@ import { apiRegister } from '../../services/auth';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import { useNavigate } from 'react-router';
-import { IUser } from '../../interface/User';
+import { IUser } from '../../interface';
+
 const Register = () => {
   const [registerForm, setRegisterForm] = useState<IUser>({
     userName: '',

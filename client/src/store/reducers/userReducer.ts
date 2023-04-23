@@ -1,4 +1,4 @@
-import { IUser } from '../../interface/User';
+import { IUser } from '../../interface';
 
 const initState: IUser = {
   userName: '',

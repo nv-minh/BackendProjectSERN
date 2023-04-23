@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useState } from 'react';
 import icons from '../ultils/icons';
-import { IPost } from '../interface/Post';
+import { IPost } from '../interface';
 import { useNavigate, Link } from 'react-router-dom';
 import path from '../ultils/constant';
 import { formatVietnameseToString } from '../ultils/Common/formatVietnameseToString';
@@ -78,7 +78,9 @@ const ItemsNewpaper = ({
                   </span>
                 );
               })}
-            <span className="pl-2 ">{title}</span>
+            <span className="pl-2  cursor-pointer" onClick={goDetail}>
+              {title}
+            </span>
           </div>
           <div className="w-[5%]  mt-1">
             <BsBookmarkStarFill fontSize="1.5em" color="orange" />
@@ -104,7 +106,7 @@ const ItemsNewpaper = ({
               className="w-[30px] h-[30px]"
             />
             <p className="ml-4 overflow-hidden whitespace-nowrap text-ellipsis">
-              {user?.name}
+              {user?.userName}
             </p>
           </div>
           <div className="flex items-center justify-end">

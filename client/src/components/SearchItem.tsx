@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { ISearchItemProps } from '../interface/SearchItemProps';
+import { ISearchItemProps } from '../interface';
 
 const SearchItem = ({ IconBefore, IconAfter, text, fontWeight }: ISearchItemProps) => {
   return (

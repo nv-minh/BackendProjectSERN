@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { IButtonProps } from '../interface/ButtonProps';
+import { IButtonProps } from '../interface';
 
 const Button = ({
   text,

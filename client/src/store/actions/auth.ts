@@ -1,50 +1,63 @@
 import actionType from './actionType';
 import { apiRegister, apiLogin } from '../../services/auth';
-import { IUser } from '../../interface/User';
+import { IUser } from '../../interface';
+import { AuthAction } from '../interface';
+import { Dispatch } from 'redux';
 
 // TODO change interface dispatch later
 
-export const register = (payload: IUser) => async (dispatch: any) => {
+export const register = (payload: IUser) => async (dispatch: Dispatch<AuthAction>) => {
   try {
     const response = await apiRegister(payload);
+    console.log(response);
     if (response?.data.success === true) {
       dispatch({
         type: actionType.REGISTER_SUCCESS,
-        data: response?.data.accessToken,
-      }) as unknown as any;
+        isLoggedIn: false,
+        accessToken: response?.data.accessToken,
+        message: response?.data.message,
+      });
     } else {
       dispatch({
         type: actionType.REGISTER_FAIL,
-        data: response?.data.message,
-      }) as unknown as any;
+        isLoggedIn: false,
+        message: response?.data.message,
+      });
     }
   } catch (error) {
     dispatch({
       type: actionType.REGISTER_FAIL,
-      data: null,
-    }) as unknown as any;
+      isLoggedIn: false,
+      accessToken: null,
+      message: error,
+    });
   }
 };
 
-export const login = (payload: IUser) => async (dispatch: any) => {
+export const login = (payload: IUser) => async (dispatch: Dispatch<AuthAction>) => {
   try {
     const response = await apiLogin(payload);
     if (response?.data.success === true) {
       dispatch({
         type: actionType.LOGIN_SUCCESS,
-        data: response?.data.accessToken,
-      }) as unknown as any;
+        isLoggedIn: true,
+        accessToken: response?.data.accessToken,
+        message: response?.data.message,
+      });
     } else {
       dispatch({
         type: actionType.LOGIN_FAIL,
-        data: response?.data.message,
-      }) as unknown as any;
+        isLoggedIn: true,
+        message: response?.data.message,
+      });
     }
   } catch (error) {
     dispatch({
       type: actionType.LOGIN_FAIL,
-      data: null,
-    }) as unknown as any;
+      isLoggedIn: false,
+      accessToken: null,
+      message: error,
+    });
   }
 };
 
