@@ -19,16 +19,27 @@ export const getPosts = () => async (dispatch: Dispatch<PostsAction>) => {
     console.log(error);
   }
 };
+
+interface QueryFilter {
+  queryPrice?: string;
+  queryArea?: string;
+  queryFilter?: string;
+  categoryCode?: string;
+}
+
 export const getPostsLimit =
-  (page: number) => async (dispatch: Dispatch<PostsAction>) => {
+  (queryPage: number, { queryPrice, queryArea, categoryCode }: QueryFilter) =>
+  async (dispatch: Dispatch<PostsAction>) => {
     try {
-      const response = await apiGetPostsLimit(page);
+      const props = { queryPage, queryPrice, queryArea, categoryCode };
+      const response = await apiGetPostsLimit(props);
       if (response?.data.success) {
         dispatch({
           type: actionType.GET_POSTS_LIMIT,
           posts: response?.data.response.rows,
           count: response?.data.response.count,
           message: response?.data.message,
+          queryFilter: { queryPrice, queryArea, categoryCode },
         });
       }
     } catch (error) {

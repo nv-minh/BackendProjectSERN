@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { PageNumber } from '../../components';
 import { useSelector } from 'react-redux';
-import { GrLinkNext } from 'react-icons/gr';
+import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr';
+import { RootState } from '../../store/interface';
 
 interface props {
   itemsNumber: number;
@@ -9,44 +10,55 @@ interface props {
 }
 
 const Pagination = (props: props) => {
-  const { count, posts } = useSelector((state: any) => state.posts);
+  const { count, posts } = useSelector((state: RootState) => state.posts);
   const [arrayPage, setArrayPage] = useState<number[]>([]);
-  const [currentPage, setCurrentPage] = useState(+props.queryPage);
+  const queryPage = +props.queryPage;
+  const [currentPage, setCurrentPage] = useState(queryPage);
   let maxPage = Math.floor(count / props.itemsNumber);
   useEffect(() => {
     let end = currentPage + 1 > maxPage ? maxPage : currentPage + 2;
-    let start = currentPage - 1 >= 4 ? currentPage - 2 : 2;
+    let start = currentPage - 1 >= 4 ? currentPage - 2 : 1;
     let temp = [];
 
-    for (let i = start; i <= end; i++) {
-      temp.push(i);
-      setArrayPage(temp);
-      //setArrayPage((previous) => [...previous, i]);
-    }
-  }, [currentPage]);
+    if (maxPage !== 1) {
+      for (let i = start; i <= end; i++) {
+        temp.push(i);
+        setArrayPage(temp);
+        //setArrayPage((previous) => [...previous, i]);
+      }
+      // console.log(arrayPage);
+    } else {
+      setArrayPage([]);
+    } // console.log(arrayPage);
+  }, [currentPage, count, posts]);
   return (
     <div className="flex items-center justify-center gap-1 ">
-      <PageNumber
-        setCurrentPage={setCurrentPage}
-        page={'1'}
-        currentPage={props.queryPage}
-      />
+      {currentPage > 4 && (
+        <PageNumber
+          key={(Math.random() + 1).toString(36).substring(7)}
+          icon={<GrLinkPrevious />}
+          page={'1'}
+          currentPage={props.queryPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
       {currentPage > 6 && <PageNumber page="..." />}
       {arrayPage.length > 0 &&
         arrayPage.map((item) => {
           return (
             <PageNumber
-              key={item.toString()}
+              key={(Math.random() + 1).toString(36).substring(7)}
               page={item.toString()}
               currentPage={props.queryPage}
               setCurrentPage={setCurrentPage}
             />
           );
-        })}
-      <PageNumber page="..." />
+        })}{' '}
+      {currentPage < maxPage && <PageNumber page="..." />}
       {currentPage < maxPage && (
         <>
           <PageNumber
+            key={(Math.random() + 1).toString(36).substring(7)}
             icon={<GrLinkNext />}
             page={maxPage.toString()}
             setCurrentPage={setCurrentPage}

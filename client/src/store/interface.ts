@@ -16,11 +16,26 @@ export interface RootStatePosts {
   posts: [];
   message: string;
   count: number;
+  queryFilter?: IQueryFilter;
+}
+
+export interface IQueryFilter {
+  queryPrice?: string;
+  queryArea?: string;
+  categoryCode?: string;
+}
+
+export interface ICategories {
+  code: string;
+  value: string;
+  order?: number;
 }
 
 export interface RootStateCategories {
   message: string;
-  categories: {}[];
+  categories?: ICategories[];
+  prices?: ICategories[] | null;
+  areas?: ICategories[] | null;
 }
 
 export interface AuthAction extends RootStateAuth {
@@ -38,5 +53,12 @@ export interface PostsAction extends RootStatePosts {
 }
 
 export interface CategoriesAction extends RootStateCategories {
-  type: typeof actionType.GET_CATEGORIES | string;
+  type: typeof actionType.GET_CATEGORIES | typeof actionType.GET_PRICES | string;
+}
+
+export interface RootState {
+  auth: RootStateAuth;
+  user: IUserAction;
+  posts: RootStatePosts;
+  app: RootStateCategories;
 }

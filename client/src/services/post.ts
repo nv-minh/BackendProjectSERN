@@ -13,11 +13,17 @@ export const apiGetAllPosts = async () => {
   }
 };
 
-export const apiGetPostsLimit = async (page: number) => {
+export interface props {
+  queryPage: number;
+  queryPrice?: string;
+}
+
+export const apiGetPostsLimit = async (props: props) => {
   try {
     const response = await axiosConfig({
       method: 'get',
-      url: `/api/v1/post/limit?page=${page}`,
+      url: `/api/v1/post/limit`,
+      params: props,
     });
     return response;
   } catch (error) {

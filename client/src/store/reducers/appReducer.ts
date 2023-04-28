@@ -14,6 +14,18 @@ const appReducer = (state = initState, action: CategoriesAction) => {
         message: action.message || '',
         categories: action.categories || [],
       };
+    case actionType.GET_PRICES:
+      return {
+        ...state,
+        message: action.message || '',
+        prices: action.prices || [],
+      };
+    case actionType.GET_AREAS:
+      return {
+        ...state,
+        message: action.message || '',
+        areas: action.areas || [],
+      };
     default:
       return state;
   }

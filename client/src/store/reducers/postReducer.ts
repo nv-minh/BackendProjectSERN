@@ -17,6 +17,7 @@ const postReducer = (state = initState, action: PostsAction) => {
         posts: action.posts || [],
         message: action.message || '',
         count: action.count || 0,
+        queryFilter: action.queryFilter || {},
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import { CombinedState, combineReducers, Reducer } from 'redux';
 import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { persistReducer } from 'redux-persist';
@@ -19,7 +19,6 @@ const authConfig = {
   key: 'auth',
   whitelist: ['isLoggedIn', 'accessToken'],
 };
-// TODO: fix type action
 const rootReducer = combineReducers({
   auth: persistReducer<RootStateAuth, any>(authConfig, authReducer),
   user: userReducer,

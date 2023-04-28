@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logowithoutbg.png';
 import { Button } from '../../components';
 import icons from '../../ultils/icons';
@@ -8,19 +8,18 @@ import path from '../../ultils/constant';
 import { useSelector, useDispatch } from 'react-redux';
 import * as actions from '../../store/actions';
 import Swal from 'sweetalert2';
-import { useSearchParams } from 'react-router-dom';
 
 const { FaPlusCircle } = icons;
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [params] = useSearchParams();
   const headerRef = useRef<HTMLInputElement>(null);
+  const location = useLocation();
   useEffect(() => {
     if (headerRef) {
       headerRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-  }, [params.get('page')]);
+  }, [location]);
 
   const { isLoggedIn } = useSelector((state: any) => state.auth);
   const goLogin = useCallback((flag: string) => {

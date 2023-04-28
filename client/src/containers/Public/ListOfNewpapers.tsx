@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, ItemsNewpaper } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsLimit } from '../../store/actions/post';
+import { PostsAction, RootState } from '../../store/interface';
+import { useSearchParams } from 'react-router-dom';
 
 interface prop {
   queryPage: string;
@@ -9,14 +11,17 @@ interface prop {
 
 const ListOfNewpapers = (prop: prop) => {
   const dispatch = useDispatch();
-  const { posts, count } = useSelector((state: any) => state.posts);
+  const { posts, count } = useSelector((state: RootState) => state.posts);
+
   // const listRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
-    dispatch(getPostsLimit(+prop.queryPage) as unknown as any);
+    dispatch(getPostsLimit(+prop.queryPage, {}) as unknown as PostsAction);
     // if (listRef) {
     //   listRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // }
-  }, [+prop.queryPage]);
+    //
+  }, []);
+
   return (
     <div className="p-2">
       <div className="flex items-center justify-between ">
