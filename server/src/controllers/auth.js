@@ -1,4 +1,5 @@
 import { registerService, loginService } from "../services/auth";
+
 const register = async (req, res) => {
   const { userName, phone, password } = req.body;
   // Simple validation
@@ -10,7 +11,12 @@ const register = async (req, res) => {
   }
   try {
     const response = await registerService({ userName, phone, password, res });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed at register controller: " + error,
+    });
+  }
 };
 
 const login = async (req, res) => {
@@ -18,15 +24,15 @@ const login = async (req, res) => {
   try {
     if (!phone || !password)
       return res.status(400).json({
-        err: 1,
+        success: false,
         message: "Missing inputs !",
       });
     const response = await loginService({ phone, password });
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
-      err: -1,
-      message: "Fail at auth controller: " + error,
+      success: false,
+      message: "Failed at login controller: " + error,
     });
   }
 };

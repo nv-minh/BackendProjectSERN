@@ -1,18 +1,18 @@
-import db from '../models'
+import db from "../models";
 
 // GET ALL PROVINCE
-export const getProvincesSerivce = () => new Promise(async (resolve, reject) => {
-    try {
-        const response = await db.Province.findAll({
-            raw: true,
-            attributes: ['code', 'value']
-        })
-        resolve({
-            err: response ? 0 : 1,
-            msg: response ? 'OK' : 'Failed to get provinces.',
-            response
-        })
-    } catch (error) {
-        reject(error)
-    }
-})
+export const getProvincesSerivce = async () => {
+  try {
+    const response = await db.Province.findAll({
+      raw: true,
+      attributes: ["code", "value"],
+    });
+    return {
+      success: !!response,
+      message: response ? "OK" : "Failed to get provinces.",
+      provinces: response,
+    };
+  } catch (error) {
+    return error;
+  }
+};

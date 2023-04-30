@@ -1,18 +1,18 @@
-import db from '../models'
+import db from "../models";
 
 // GET ALL AREA
-export const getAreasSerivce = () => new Promise(async (resolve, reject) => {
-    try {
-        const response = await db.Area.findAll({
-            raw: true,
-            attributes: ['code', 'value', 'order']
-        })
-        resolve({
-            err: response ? 0 : 1,
-            msg: response ? 'OK' : 'Failed to get areas.',
-            response
-        })
-    } catch (error) {
-        reject(error)
-    }
-})
+export const getAreasSerivce = async () => {
+  try {
+    const response = await db.Area.findAll({
+      raw: true,
+      attributes: ["code", "value", "order"],
+    });
+    return {
+      success: !!response,
+      message: response ? "OK" : "Failed to get areas.",
+      areas: response,
+    };
+  } catch (error) {
+    return error;
+  }
+};

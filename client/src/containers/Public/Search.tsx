@@ -16,13 +16,15 @@ const {
 const Search = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [title, setTitle] = useState('');
+  const [name, setName] = useState('');
   const [content, setContent] = useState<any>([]);
   const { provinces, prices, areas, categories } = useSelector(
     (state: RootState) => state.app,
   );
 
-  const handleShowModal = (title: string, content: any) => {
+  const handleShowModal = (title: string, content: any, name: string) => {
     setTitle(title);
+    setName(name);
     setContent(content);
     setIsShowModal(true);
   };
@@ -31,7 +33,9 @@ const Search = () => {
       <div className="h-[55px] p-[10px] bg-[#febb02] rounded-lg flex items-center justify-around gap-2">
         <span
           className="flex-1 cursor-pointer "
-          onClick={() => handleShowModal('categories', categories)}
+          onClick={() =>
+            handleShowModal('categories', categories, 'Chọn loại bất động sản')
+          }
         >
           <SearchItem
             text={'Phòng trọ, nhà trọ'}
@@ -42,7 +46,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('provinces', provinces)}
+          onClick={() => handleShowModal('provinces', provinces, 'Chọn tỉnh thành')}
         >
           <SearchItem
             text={'Toàn quốc'}
@@ -52,7 +56,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('prices', prices)}
+          onClick={() => handleShowModal('prices', prices, 'Chọn mức giá')}
         >
           <SearchItem
             text={'Chọn giá'}
@@ -62,7 +66,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('areas', areas)}
+          onClick={() => handleShowModal('areas', areas, 'Chọn diện tích')}
         >
           <SearchItem
             text={'Chọn diện tích'}
@@ -86,6 +90,7 @@ const Search = () => {
           title={title}
           content={content}
           key={content.code}
+          name={name}
         />
       )}
     </>
