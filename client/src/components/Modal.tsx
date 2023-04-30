@@ -27,7 +27,7 @@ export const Modal = (props: props) => {
       }
     }
   };
-  const convertMaxPercenttoTarget = (percent: number) => {
+  const convertPercenttoValue = (percent: number) => {
     let maxValue = props.content[props.content.length - 1].value.match(/\d+/)[0];
     return props.title === 'prices'
       ? (maxValue * percent) / 100
@@ -35,10 +35,7 @@ export const Modal = (props: props) => {
       ? (maxValue * percent) / 100
       : 0;
   };
-  const convertto100 = (percent: number) => {
-    let target = props.title === 'prices' ? 15 : props.title === 'areas' ? 90 : 1;
-    return Math.floor((percent / target) * 100);
-  };
+
   useEffect(() => {
     const activedTrackEl = document.getElementById('track-active');
     if (activedTrackEl) {
@@ -82,17 +79,17 @@ export const Modal = (props: props) => {
             <div className="flex flex-col items-center justify-center relative">
               <div className="z-30 absolute top-[-48px] font-bold text-xl text-orange-600  w-full text-center">
                 {persent1 === 100 && persent2 === 100
-                  ? `Trên ${convertMaxPercenttoTarget(persent1)} ${
+                  ? `Trên ${convertPercenttoValue(persent1)} ${
                       props.title === 'prices' ? 'triệu' : 'm2'
                     } +`
                   : `Từ ${
                       persent1 <= persent2
-                        ? convertMaxPercenttoTarget(persent1)
-                        : convertMaxPercenttoTarget(persent2)
+                        ? convertPercenttoValue(persent1)
+                        : convertPercenttoValue(persent2)
                     } - ${
                       persent2 >= persent1
-                        ? convertMaxPercenttoTarget(persent2)
-                        : convertMaxPercenttoTarget(persent1)
+                        ? convertPercenttoValue(persent2)
+                        : convertPercenttoValue(persent1)
                     } ${props.title === 'prices' ? 'triệu' : 'm2'}`}
                 <div className="flex items-center justify-center w-full flex-col relative mt-10">
                   <div
