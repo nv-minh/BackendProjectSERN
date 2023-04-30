@@ -10,6 +10,8 @@ module.exports = {
         primary: '#F5F5F5',
         secondary1: '#1266dd',
         secondary2: '#f73859',
+        'overlay-30': 'rgba(0,0,0,0.3)',
+        'overlay-70': 'rgba(0,0,0,0.7)',
         blue: {
           100: '#0071c2 !important',
         },
@@ -23,5 +25,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/line-clamp')],
 };

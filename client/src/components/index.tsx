@@ -8,3 +8,5 @@ export { default as PageNumber } from './PageNumber';
 export { default as ItemSidebar } from './ItemSidebar';
 export { default as WhyUs } from './WhyUs';
 export { default as Contact } from './Contact';
+export { default as ItemRelatedPost } from './ItemRelatedPost';
+export { default as RelatedPost } from './RelatedPost';

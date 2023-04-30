@@ -40,7 +40,8 @@ export interface IPost {
   star: string;
   title: string;
   user: IUser;
-  images?: string[];
+  createdAt?: string;
+  images?: any;
 }
 
 export interface IAttributes {
@@ -48,6 +49,7 @@ export interface IAttributes {
   hashtag: string;
   price: string;
   published: string;
+  createdAt: string;
 }
 
 export interface IProVinceButton {

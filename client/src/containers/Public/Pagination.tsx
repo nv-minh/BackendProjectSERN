@@ -5,7 +5,7 @@ import { GrLinkNext, GrLinkPrevious } from 'react-icons/gr';
 import { RootState } from '../../store/interface';
 
 interface props {
-  itemsNumber: number;
+  itemsNumber?: number;
   queryPage: string;
 }
 
@@ -14,7 +14,7 @@ const Pagination = (props: props) => {
   const [arrayPage, setArrayPage] = useState<number[]>([]);
   const queryPage = +props.queryPage;
   const [currentPage, setCurrentPage] = useState(queryPage);
-  let maxPage = Math.floor(count / props.itemsNumber);
+  let maxPage = (props?.itemsNumber && Math.floor(count / props?.itemsNumber)) || 1;
   useEffect(() => {
     let end = currentPage + 1 > maxPage ? maxPage : currentPage + 2;
     let start = currentPage - 1 >= 4 ? currentPage - 2 : 1;

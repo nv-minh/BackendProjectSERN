@@ -5,8 +5,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import { ItemSidebar } from '../../components';
-import { CategoriesAction, RootState } from '../../store/interface';
+import { CategoriesAction, PostsAction, RootState } from '../../store/interface';
 import { Dispatch } from 'redux';
+import { RelatedPost } from '../../components/index';
 import * as actions from '../../store/actions';
 
 const HomePage = () => {
@@ -18,6 +19,8 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(actions.getPrice() as unknown as CategoriesAction);
     dispatch(actions.getAreas() as unknown as CategoriesAction);
+    dispatch(actions.getProvinces() as unknown as CategoriesAction);
+    dispatch(actions.getNewsPost() as unknown as PostsAction);
   }, []);
   return (
     <div className="flex flex-col w-[70%] gap-3 ">
@@ -35,13 +38,25 @@ const HomePage = () => {
             categories={categories}
             title={'Danh mục cho thuê'}
             twoRows={false}
+            key={(Math.random() + 1).toString(36).substring(7)}
           />
-          <ItemSidebar categories={prices} title={'Xem theo giá'} twoRows={true} />
-          <ItemSidebar categories={areas} title={'Xem theo diện tích'} twoRows={true} />
+          <ItemSidebar
+            categories={prices}
+            title={'Xem theo giá'}
+            twoRows={true}
+            key={(Math.random() + 1).toString(36).substring(7)}
+          />
+          <ItemSidebar
+            categories={areas}
+            title={'Xem theo diện tích'}
+            twoRows={true}
+            key={(Math.random() + 1).toString(36).substring(7)}
+          />
+          <RelatedPost />
         </div>
       </div>
       <div className="mt-5 mb-12 mr-56">
-        <Pagination itemsNumber={posts.length} queryPage={queryPage} />
+        <Pagination itemsNumber={posts?.length} queryPage={queryPage} />
       </div>
     </div>
   );

@@ -8,7 +8,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { PostsAction, RootState } from '../store/interface';
 import * as actions from '../store/actions';
-import { IQueryFilter } from '../store/interface';
 
 const notActivePagination =
   'px-[18px] py-[15px] bg-white hover:bg-[#ddd] hover:text-white rounded-md cursor-pointer w-[46px] h-[48px] text-center items-center justify-center';

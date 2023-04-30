@@ -4,7 +4,6 @@ import autoMergeLevel2 from 'redux-persist/es/stateReconciler/autoMergeLevel2';
 import { persistReducer } from 'redux-persist';
 import userReducer from './userReducer';
 import authReducer from './authReducer';
-import { IAuth } from '../../interface';
 import postReducer from './postReducer';
 import appReducer from './appReducer';
 import { RootStateAuth } from '../interface';

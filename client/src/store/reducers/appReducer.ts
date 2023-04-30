@@ -26,6 +26,12 @@ const appReducer = (state = initState, action: CategoriesAction) => {
         message: action.message || '',
         areas: action.areas || [],
       };
+    case actionType.GET_PROVINCES:
+      return {
+        ...state,
+        message: action.message || '',
+        provinces: action.provinces || [],
+      };
     default:
       return state;
   }

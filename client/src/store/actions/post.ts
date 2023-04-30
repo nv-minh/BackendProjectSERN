@@ -1,4 +1,4 @@
-import { apiGetAllPosts, apiGetPostsLimit } from '../../services/post';
+import { apiGetAllPosts, apiGetNewsPost, apiGetPostsLimit } from '../../services/post';
 import actionType from './actionType';
 import { PostsAction } from '../interface';
 import { Dispatch } from 'redux';
@@ -46,3 +46,18 @@ export const getPostsLimit =
       console.log(error);
     }
   };
+export const getNewsPost = () => async (dispatch: Dispatch<PostsAction>) => {
+  try {
+    const response = await apiGetNewsPost();
+    if (response?.data.success) {
+      dispatch({
+        type: actionType.GET_NEWSPOST,
+        newsPost: response.data.newsPost,
+        count: response.data.posts.length,
+        message: response.data.message,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};

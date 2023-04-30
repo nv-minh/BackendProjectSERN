@@ -2,12 +2,10 @@ import axiosConfig from '../axiosConfig';
 
 export const apiGetAllPosts = async () => {
   try {
-    const response = await axiosConfig({
+    return await axiosConfig({
       method: 'get',
       url: '/api/v1/post/all',
     });
-
-    return response;
   } catch (error) {
     return error;
   }
@@ -20,12 +18,22 @@ export interface props {
 
 export const apiGetPostsLimit = async (props: props) => {
   try {
-    const response = await axiosConfig({
+    return await axiosConfig({
       method: 'get',
       url: `/api/v1/post/limit`,
       params: props,
     });
-    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const apiGetNewsPost = async () => {
+  try {
+    return await axiosConfig({
+      method: 'get',
+      url: '/api/v1/post/new-post',
+    });
   } catch (error) {
     return error;
   }

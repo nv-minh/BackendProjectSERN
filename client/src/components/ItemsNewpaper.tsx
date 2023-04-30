@@ -95,7 +95,7 @@ const ItemsNewpaper = ({
             address.split(',')[address.split(',').length - 2]
           }${address.split(',')[address.split(',').length - 1]}`}</span>
         </div>
-        <p className="text-gray-500 lineclamp">
+        <p className="text-gray-500 line-clamp-2">
           {description[0]} {description[1]}
         </p>
         <div className="flex items-center justify-between my-5">

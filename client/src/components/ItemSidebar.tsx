@@ -66,6 +66,7 @@ const ItemSidebar = (props: props) => {
           props.categories.map((item) => {
             return (
               <NavLink
+                key={item.code}
                 className={props.twoRows ? twoRows : oneRow}
                 to={formatVietnameseToString(item.value)}
                 onClick={(event) => {

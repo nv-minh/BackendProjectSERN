@@ -3,6 +3,7 @@ import { PostsAction, RootStatePosts } from '../interface';
 
 const initState: RootStatePosts = {
   posts: [],
+  newsPost: [],
   message: '',
   count: 0,
 };
@@ -18,6 +19,14 @@ const postReducer = (state = initState, action: PostsAction) => {
         message: action.message || '',
         count: action.count || 0,
         queryFilter: action.queryFilter || {},
+      };
+    case actionType.GET_NEWSPOST:
+      return {
+        ...state,
+        type: actionType.GET_NEWSPOST,
+        newsPost: action.posts || [],
+        message: action.message || '',
+        count: action.count || 0,
       };
     default:
       return state;

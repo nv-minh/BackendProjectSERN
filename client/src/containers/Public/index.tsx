@@ -8,4 +8,3 @@ export { default as Search } from './Search';
 export { default as ListOfNewpapers } from './ListOfNewpapers';
 export { default as Pagination } from './Pagination';
 export { default as DetailPost } from './DetailPost';
-export { default as NewPosts } from './NewPosts';

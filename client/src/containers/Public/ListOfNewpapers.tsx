@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPostsLimit } from '../../store/actions/post';
 import { PostsAction, RootState } from '../../store/interface';
 import { useSearchParams } from 'react-router-dom';
+import { IPost } from '../../interface';
 
 interface prop {
   queryPage: string;
@@ -11,17 +12,14 @@ interface prop {
 
 const ListOfNewpapers = (prop: prop) => {
   const dispatch = useDispatch();
-  const { posts, count } = useSelector((state: RootState) => state.posts);
-
+  const { posts } = useSelector((state: RootState) => state.posts);
   // const listRef = useRef<HTMLInputElement>(null);
-
   useEffect(() => {
     dispatch(getPostsLimit(+prop.queryPage, {}) as unknown as PostsAction);
     // if (listRef) {
     //   listRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     //
   }, []);
-
   return (
     <div className="p-2">
       <div className="flex items-center justify-between ">
@@ -44,8 +42,9 @@ const ListOfNewpapers = (prop: prop) => {
         />
       </div>
       <div className="flex flex-col">
-        {posts?.length > 0 &&
-          posts.map((item: any) => {
+        {posts &&
+          posts?.length > 0 &&
+          posts.map((item: IPost) => {
             const obj = JSON.parse(item.images.image);
             return (
               <ItemsNewpaper
@@ -54,7 +53,7 @@ const ListOfNewpapers = (prop: prop) => {
                 address={item.address}
                 attributes={item.attributes}
                 title={item.title}
-                description={JSON.parse(item.description)}
+                description={item.description ? JSON.parse(item.description) : ''}
                 user={item.user}
                 star={item.star}
                 id={item?.id}

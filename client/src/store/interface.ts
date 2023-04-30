@@ -13,7 +13,8 @@ export interface IUserAction {
 }
 
 export interface RootStatePosts {
-  posts: [];
+  posts?: [];
+  newsPost?: [];
   message: string;
   count: number;
   queryFilter?: IQueryFilter;
@@ -36,6 +37,7 @@ export interface RootStateCategories {
   categories?: ICategories[];
   prices?: ICategories[] | null;
   areas?: ICategories[] | null;
+  provinces?: ICategories[] | null;
 }
 
 export interface AuthAction extends RootStateAuth {
@@ -49,7 +51,11 @@ export interface AuthAction extends RootStateAuth {
 }
 
 export interface PostsAction extends RootStatePosts {
-  type: typeof actionType.GET_POSTS | typeof actionType.GET_POSTS_LIMIT | string;
+  type:
+    | typeof actionType.GET_POSTS
+    | typeof actionType.GET_POSTS_LIMIT
+    | typeof actionType.GET_NEWSPOST
+    | string;
 }
 
 export interface CategoriesAction extends RootStateCategories {
@@ -60,5 +66,6 @@ export interface RootState {
   auth: RootStateAuth;
   user: IUserAction;
   posts: RootStatePosts;
+  newsPost: RootStatePosts;
   app: RootStateCategories;
 }

@@ -1,4 +1,9 @@
-import { apiGetAreas, apiGetCategories, apiGetPrices } from '../../services/category';
+import {
+  apiGetAreas,
+  apiGetCategories,
+  apiGetPrices,
+  apiGetProvinces,
+} from '../../services/category';
 import actionType from './actionType';
 import { Dispatch } from 'redux';
 import { CategoriesAction } from '../interface';
@@ -55,6 +60,27 @@ export const getAreas = () => async (dispatch: Dispatch<CategoriesAction>) => {
       dispatch({
         type: actionType.GET_AREAS,
         areas: null,
+        message: response?.data.message,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getProvinces = () => async (dispatch: Dispatch<CategoriesAction>) => {
+  try {
+    const response = await apiGetProvinces();
+    if (response?.data.success) {
+      console.log(response.data);
+      dispatch({
+        type: actionType.GET_PROVINCES,
+        provinces: response?.data.provinces,
+        message: response?.data.message,
+      });
+    } else {
+      dispatch({
+        type: actionType.GET_PROVINCES,
+        provinces: null,
         message: response?.data.message,
       });
     }
