@@ -31,7 +31,7 @@ const Search = () => {
       <div className="h-[55px] p-[10px] bg-[#febb02] rounded-lg flex items-center justify-around gap-2">
         <span
           className="flex-1 cursor-pointer "
-          onClick={() => handleShowModal('Phòng trọ, nhà trọ', categories)}
+          onClick={() => handleShowModal('categories', categories)}
         >
           <SearchItem
             text={'Phòng trọ, nhà trọ'}
@@ -42,7 +42,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('Toàn quốc', provinces)}
+          onClick={() => handleShowModal('provinces', provinces)}
         >
           <SearchItem
             text={'Toàn quốc'}
@@ -52,7 +52,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('Chọn giá', prices)}
+          onClick={() => handleShowModal('prices', prices)}
         >
           <SearchItem
             text={'Chọn giá'}
@@ -62,7 +62,7 @@ const Search = () => {
         </span>
         <span
           className="flex-1 cursor-pointer"
-          onClick={() => handleShowModal('Chọn diện tích', areas)}
+          onClick={() => handleShowModal('areas', areas)}
         >
           <SearchItem
             text={'Chọn diện tích'}
