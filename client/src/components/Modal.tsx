@@ -13,6 +13,7 @@ interface props {
 export const Modal = (props: props) => {
   const [persent1, setPersent1] = useState(20);
   const [persent2, setPersent2] = useState(50);
+  const [activeEl, setActiveEl] = useState('');
 
   const handleChangeRange = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const stackElement = document.getElementById('track');
@@ -28,6 +29,45 @@ export const Modal = (props: props) => {
       }
     }
   };
+
+  const handleButtonRange = (code: string, value: string) => {
+    let maxValue = +props.content[props.content.length - 1].value.match(/\d+/)[0] || 0;
+    let minValue = +props.content[0].value.match(/\d+/)[0] || 0;
+    const range = value.match(/\d+/g);
+    if (range && range[1]) {
+      setPersent1(round((+range[0] * 100) / maxValue, 0));
+      setPersent2(round((+range[1] * 100) / maxValue, 0));
+    } else {
+      if (range && +range[0] === maxValue) {
+        setPersent1(100);
+        setPersent2(100);
+      } else {
+        setPersent1(0);
+        setPersent2((minValue * 100) / maxValue);
+      }
+    }
+
+    setActiveEl(code);
+  };
+
+  function round(value: number, step: number) {
+    step || (step = 1.0);
+    var inv = 1.0 / step;
+    return Math.round(value * inv) / inv;
+  }
+
+  // TODO fixbug type any
+  const convertPercenttoValue = (percent: number) => {
+    let maxValue = +props.content[props.content.length - 1].value.match(/\d+/)[0] || 0;
+    let minValue = +props.content[0].value.match(/\d+/)[0] || 0;
+    //rounding with step is 0.5
+    return props.title === 'prices'
+      ? round((maxValue * percent) / 100, 0.5)
+      : props.title === 'areas'
+      ? round((maxValue * percent) / 100, 0.5)
+      : 0;
+  };
+  const handleSubmit = () => {};
   useEffect(() => {
     const activedTrackEl = document.getElementById('track-active');
     // switch to
@@ -47,23 +87,6 @@ export const Modal = (props: props) => {
     }
   }, [persent1, persent2]);
 
-  function round(value: number, step: number) {
-    step || (step = 1.0);
-    var inv = 1.0 / step;
-    return Math.round(value * inv) / inv;
-  }
-
-  // TODO fixbug type any
-  const convertPercenttoValue = (percent: number) => {
-    //rounding with step is 0.5
-    let maxValue = props.content[props.content.length - 1].value.match(/\d+/)[0];
-    return props.title === 'prices'
-      ? round((maxValue * percent) / 100, 0.5)
-      : props.title === 'areas'
-      ? round((maxValue * percent) / 100, 0.5)
-      : 0;
-  };
-
   return (
     <div
       onClick={() => {
@@ -78,9 +101,9 @@ export const Modal = (props: props) => {
         }}
         className="w-1/3 bg-white rounded-md "
       >
-        <div className="h-[45px] flex items-center px-4 border-b border-gray-100">
+        <div className="h-[45px] flex items-center px-4 border-b border-gray-100 ">
           <span
-            className="hover:text-red-600 cursor-pointer justify-start"
+            className="hover:text-red-600 cursor-pointer"
             onClick={(event) => {
               event.stopPropagation();
               props.setIsShowModal(false);
@@ -88,7 +111,7 @@ export const Modal = (props: props) => {
           >
             <GrLinkPrevious size={24} />
           </span>
-          <span className="font-medium text-lg text-center pl-40">{props.name}</span>
+          <span className="font-medium text-lg text-center m-auto">{props.name}</span>
         </div>
         {(props.title === 'prices' || props.title === 'areas') && (
           <>
@@ -126,7 +149,10 @@ export const Modal = (props: props) => {
                       step="1"
                       className="w-full appearance-none pointer-events-none  absolute top-0 bottom-0"
                       value={persent1}
-                      onChange={(event) => setPersent1(+event.target.value)}
+                      onChange={(event) => {
+                        setActiveEl('');
+                        setPersent1(+event.target.value);
+                      }}
                     />{' '}
                     <input
                       type="range"
@@ -135,7 +161,10 @@ export const Modal = (props: props) => {
                       step="1"
                       className="w-full  appearance-none  pointer-events-none absolute top-0 bottom-0 "
                       value={persent2}
-                      onChange={(event) => setPersent2(+event.target.value)}
+                      onChange={(event) => {
+                        setActiveEl('');
+                        setPersent2(+event.target.value);
+                      }}
                     />
                     <div className="absolute flex top-6 left-0 right-0 justify-between items-center">
                       {props.title === 'prices' && (
@@ -176,13 +205,23 @@ export const Modal = (props: props) => {
                 return (
                   <button
                     key={item.code}
-                    className="px-4 py-2 bg-gray-200 rounded-md cursor-pointer"
+                    className={`px-4 py-2 bg-gray-200 rounded-md cursor-pointer ${
+                      item.code === activeEl ? '!bg-blue-600 text-white' : ''
+                    }`}
+                    onClick={() => handleButtonRange(item.code, item.value)}
                   >
                     {item.value}
                   </button>
                 );
               })}
             </div>
+            <button
+              type="button"
+              className="w-full bg-orange-400 py-2 font-medium rounded-bl-md rounded-br-md mt-6"
+              onClick={() => handleSubmit()}
+            >
+              Áp dụng
+            </button>
           </>
         )}
         {(props.title === 'categories' || props.title === 'provinces') && (
