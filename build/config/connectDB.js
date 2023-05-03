@@ -14,9 +14,9 @@ require("dotenv").config();
 
 // Option 3: Passing parameters separately (other dialects)
 // const sequelize = new Sequelize("phongtro123", "root", null, {
-//   host: process.env.HOST,
-//   dialect: process.env.DIALECT,
-//   port: process.env.PORT_SV,
+//   host: process.env.DB_HOST,
+//   dialect: process.env.DB_DIALECT,
+//   // port: process.env.PORT_SV,
 //   logging: false,
 // });
 
@@ -28,6 +28,17 @@ var sequelize = new Sequelize(process.env.DB_DATABASE_NAME, process.env.DB_USERN
   logging: false,
   query: {
     raw: true
+  },
+  protocol: process.env.DB_DIALECT,
+  dialectOptions: {
+    connectTimeout: 60000,
+    // 60 seconds
+    requestTimeout: 60000,
+    // 60 seconds
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
   },
   timezone: "+07:00"
 });

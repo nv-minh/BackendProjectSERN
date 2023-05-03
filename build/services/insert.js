@@ -4,7 +4,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.insertService = exports.createPricesAndAreas = void 0;
+exports.insertService = void 0;
 var _models = _interopRequireDefault(require("../models"));
 var _bcryptjs = _interopRequireDefault(require("bcryptjs"));
 var _uuid = require("uuid");
@@ -33,246 +33,273 @@ var dataBody = [{
   body: _nhachothue["default"].body,
   code: "NCT"
 }];
+var categories = [{
+  code: "CTCH",
+  value: "Cho thuê căn hộ",
+  header: "Cho Thuê Căn Hộ Chung Cư, Giá Rẻ, Mới Nhất 2023",
+  subheader: "Cho thuê căn hộ - Kênh đăng tin cho thuê căn hộ số 1: giá rẻ, chính chủ, đầy đủ tiện nghi. Cho thuê chung cư với nhiều mức giá, diện tích cho thuê khác nhau."
+}, {
+  code: "CTMB",
+  value: "Cho thuê mặt bằng",
+  header: "Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot, Mới Nhất 2023",
+  subheader: 'Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot, Mới Nhất 2022", "Cho thuê mặt bằng - Kênh đăng tin cho thuê mặt bằng, cho thuê cửa hàng, cho thuê kiot số 1: giá rẻ, mặt tiền, khu đông dân cư, phù hợp kinh doanh.'
+}, {
+  code: "CTPT",
+  value: "Cho thuê phòng trọ",
+  header: "Cho Thuê Phòng Trọ, Giá Rẻ, Tiện Nghi, Mới Nhất 2023",
+  subheader: 'Cho Thuê Phòng Trọ, Giá Rẻ, Tiện Nghi, Mới Nhất 2022", "Cho thuê phòng trọ - Kênh thông tin số 1 về phòng trọ giá rẻ, phòng trọ sinh viên, phòng trọ cao cấp mới nhất năm 2022. Tất cả nhà trọ cho thuê giá tốt nhất tại Việt Nam.'
+}, {
+  code: "NCT",
+  value: "Nhà cho thuê",
+  header: "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2023",
+  subheader: "Cho thuê nhà nguyên căn - Kênh đăng tin cho thuê nhà số 1: giá rẻ, chính chủ, miễn trung gian, đầy đủ tiện nghi, mức giá, diện tích cho thuê khác nhau."
+}];
 var hashPassword = function hashPassword(password) {
   return _bcryptjs["default"].hashSync(password, _bcryptjs["default"].genSaltSync(12));
 };
 var insertService = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
     var provinceCodes, labelCodes;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
         case 0:
-          try {
-            provinceCodes = [];
-            labelCodes = [];
-            dataBody.forEach(function (cate) {
-              cate.body.forEach( /*#__PURE__*/function () {
-                var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(item) {
-                  var _item$header, _item$header$class, _item$header2, _item$header2$class, _item$header2$class$c, _item$header3, _item$header3$address, _item$header3$address2, _item$header4, _item$header4$address, _item$header4$address2, _item$mainContent, _item$header5, _item$header5$attribu, _item$header6, _item$header6$attribu, _item$header7, _item$header8, _item$header9, _dataArea$find, _dataPrice$find, _item$header10, _item$header10$attrib, _item$header11, _item$header11$attrib, _item$header12, _item$header12$attrib, _item$header13, _item$header13$attrib, _item$header14, _item$header14$attrib, _item$header15, _item$header15$attrib, _item$overview, _item$overview$conten, _item$overview2, _item$overview2$conte, _item$overview3, _item$overview3$conte, _item$overview4, _item$overview4$conte, _item$overview5, _item$overview5$conte, _item$overview6, _item$overview6$conte, _item$overview7, _item$overview7$conte, _item$contact, _item$contact$content, _item$contact2, _item$contact2$conten, _item$contact3, _item$contact3$conten;
-                  var postId, labelCode, provinceCode, attributesId, userId, imagesId, overviewId, desc, currentArea, currentPrice;
-                  return _regeneratorRuntime().wrap(function _callee$(_context) {
-                    while (1) switch (_context.prev = _context.next) {
-                      case 0:
-                        postId = (0, _uuid.v4)();
-                        labelCode = (0, _generateCode["default"])(item === null || item === void 0 ? void 0 : (_item$header = item.header) === null || _item$header === void 0 ? void 0 : (_item$header$class = _item$header["class"]) === null || _item$header$class === void 0 ? void 0 : _item$header$class.classType).trim();
-                        (labelCodes === null || labelCodes === void 0 ? void 0 : labelCodes.every(function (item) {
-                          return (item === null || item === void 0 ? void 0 : item.code) !== labelCode;
-                        })) && labelCodes.push({
-                          code: labelCode,
-                          value: item === null || item === void 0 ? void 0 : (_item$header2 = item.header) === null || _item$header2 === void 0 ? void 0 : (_item$header2$class = _item$header2["class"]) === null || _item$header2$class === void 0 ? void 0 : (_item$header2$class$c = _item$header2$class.classType) === null || _item$header2$class$c === void 0 ? void 0 : _item$header2$class$c.trim()
-                        });
-                        provinceCode = (0, _generateCode["default"])(item === null || item === void 0 ? void 0 : (_item$header3 = item.header) === null || _item$header3 === void 0 ? void 0 : (_item$header3$address = _item$header3.address) === null || _item$header3$address === void 0 ? void 0 : (_item$header3$address2 = _item$header3$address.split(",")) === null || _item$header3$address2 === void 0 ? void 0 : _item$header3$address2.slice(-1)[0]).trim();
-                        (provinceCodes === null || provinceCodes === void 0 ? void 0 : provinceCodes.every(function (item) {
-                          return (item === null || item === void 0 ? void 0 : item.code) !== provinceCode;
-                        })) && provinceCodes.push({
-                          code: provinceCode,
-                          value: item === null || item === void 0 ? void 0 : (_item$header4 = item.header) === null || _item$header4 === void 0 ? void 0 : (_item$header4$address = _item$header4.address) === null || _item$header4$address === void 0 ? void 0 : (_item$header4$address2 = _item$header4$address.split(",")) === null || _item$header4$address2 === void 0 ? void 0 : _item$header4$address2.slice(-1)[0].trim()
-                        });
-                        attributesId = (0, _uuid.v4)();
-                        userId = (0, _uuid.v4)();
-                        imagesId = (0, _uuid.v4)();
-                        overviewId = (0, _uuid.v4)();
-                        desc = JSON.stringify(item === null || item === void 0 ? void 0 : (_item$mainContent = item.mainContent) === null || _item$mainContent === void 0 ? void 0 : _item$mainContent.content);
-                        currentArea = (0, _common.getNumberFromString)(item === null || item === void 0 ? void 0 : (_item$header5 = item.header) === null || _item$header5 === void 0 ? void 0 : (_item$header5$attribu = _item$header5.attributes) === null || _item$header5$attribu === void 0 ? void 0 : _item$header5$attribu.acreage);
-                        currentPrice = (0, _common.getNumberFromString)(item === null || item === void 0 ? void 0 : (_item$header6 = item.header) === null || _item$header6 === void 0 ? void 0 : (_item$header6$attribu = _item$header6.attributes) === null || _item$header6$attribu === void 0 ? void 0 : _item$header6$attribu.price);
-                        _context.next = 14;
-                        return _models["default"].Post.create({
-                          id: postId,
-                          title: item === null || item === void 0 ? void 0 : (_item$header7 = item.header) === null || _item$header7 === void 0 ? void 0 : _item$header7.title,
-                          star: item === null || item === void 0 ? void 0 : (_item$header8 = item.header) === null || _item$header8 === void 0 ? void 0 : _item$header8.star,
-                          labelCode: labelCode,
-                          address: item === null || item === void 0 ? void 0 : (_item$header9 = item.header) === null || _item$header9 === void 0 ? void 0 : _item$header9.address,
-                          attributesId: attributesId,
-                          categoryCode: cate.code,
-                          description: desc,
-                          userId: userId,
-                          overviewId: overviewId,
-                          imagesId: imagesId,
-                          areaCode: (_dataArea$find = _data.dataArea.find(function (area) {
-                            return area.max > currentArea && area.min <= currentArea;
-                          })) === null || _dataArea$find === void 0 ? void 0 : _dataArea$find.code,
-                          priceCode: (_dataPrice$find = _data.dataPrice.find(function (area) {
-                            return area.max > currentPrice && area.min <= currentPrice;
-                          })) === null || _dataPrice$find === void 0 ? void 0 : _dataPrice$find.code,
-                          provinceCode: provinceCode,
-                          priceNumber: (0, _common.getNumberFromStringV2)(item === null || item === void 0 ? void 0 : (_item$header10 = item.header) === null || _item$header10 === void 0 ? void 0 : (_item$header10$attrib = _item$header10.attributes) === null || _item$header10$attrib === void 0 ? void 0 : _item$header10$attrib.price),
-                          areaNumber: (0, _common.getNumberFromStringV2)(item === null || item === void 0 ? void 0 : (_item$header11 = item.header) === null || _item$header11 === void 0 ? void 0 : (_item$header11$attrib = _item$header11.attributes) === null || _item$header11$attrib === void 0 ? void 0 : _item$header11$attrib.acreage)
-                        });
-                      case 14:
-                        _context.next = 16;
-                        return _models["default"].Attribute.create({
-                          id: attributesId,
-                          price: item === null || item === void 0 ? void 0 : (_item$header12 = item.header) === null || _item$header12 === void 0 ? void 0 : (_item$header12$attrib = _item$header12.attributes) === null || _item$header12$attrib === void 0 ? void 0 : _item$header12$attrib.price,
-                          acreage: item === null || item === void 0 ? void 0 : (_item$header13 = item.header) === null || _item$header13 === void 0 ? void 0 : (_item$header13$attrib = _item$header13.attributes) === null || _item$header13$attrib === void 0 ? void 0 : _item$header13$attrib.acreage,
-                          published: item === null || item === void 0 ? void 0 : (_item$header14 = item.header) === null || _item$header14 === void 0 ? void 0 : (_item$header14$attrib = _item$header14.attributes) === null || _item$header14$attrib === void 0 ? void 0 : _item$header14$attrib.published,
-                          hashtag: item === null || item === void 0 ? void 0 : (_item$header15 = item.header) === null || _item$header15 === void 0 ? void 0 : (_item$header15$attrib = _item$header15.attributes) === null || _item$header15$attrib === void 0 ? void 0 : _item$header15$attrib.hashtag
-                        });
-                      case 16:
-                        _context.next = 18;
-                        return _models["default"].Image.create({
-                          id: imagesId,
-                          image: JSON.stringify(item === null || item === void 0 ? void 0 : item.images)
-                        });
-                      case 18:
-                        _context.next = 20;
-                        return _models["default"].Overview.create({
-                          id: overviewId,
-                          code: item === null || item === void 0 ? void 0 : (_item$overview = item.overview) === null || _item$overview === void 0 ? void 0 : (_item$overview$conten = _item$overview.content.find(function (i) {
-                            return i.name === "Mã tin:";
-                          })) === null || _item$overview$conten === void 0 ? void 0 : _item$overview$conten.content,
-                          area: item === null || item === void 0 ? void 0 : (_item$overview2 = item.overview) === null || _item$overview2 === void 0 ? void 0 : (_item$overview2$conte = _item$overview2.content.find(function (i) {
-                            return i.name === "Khu vực";
-                          })) === null || _item$overview2$conte === void 0 ? void 0 : _item$overview2$conte.content,
-                          type: item === null || item === void 0 ? void 0 : (_item$overview3 = item.overview) === null || _item$overview3 === void 0 ? void 0 : (_item$overview3$conte = _item$overview3.content.find(function (i) {
-                            return i.name === "Loại tin rao:";
-                          })) === null || _item$overview3$conte === void 0 ? void 0 : _item$overview3$conte.content,
-                          target: item === null || item === void 0 ? void 0 : (_item$overview4 = item.overview) === null || _item$overview4 === void 0 ? void 0 : (_item$overview4$conte = _item$overview4.content.find(function (i) {
-                            return i.name === "Đối tượng thuê:";
-                          })) === null || _item$overview4$conte === void 0 ? void 0 : _item$overview4$conte.content,
-                          bonus: item === null || item === void 0 ? void 0 : (_item$overview5 = item.overview) === null || _item$overview5 === void 0 ? void 0 : (_item$overview5$conte = _item$overview5.content.find(function (i) {
-                            return i.name === "Gói tin:";
-                          })) === null || _item$overview5$conte === void 0 ? void 0 : _item$overview5$conte.content,
-                          created: item === null || item === void 0 ? void 0 : (_item$overview6 = item.overview) === null || _item$overview6 === void 0 ? void 0 : (_item$overview6$conte = _item$overview6.content.find(function (i) {
-                            return i.name === "Ngày đăng:";
-                          })) === null || _item$overview6$conte === void 0 ? void 0 : _item$overview6$conte.content,
-                          expired: item === null || item === void 0 ? void 0 : (_item$overview7 = item.overview) === null || _item$overview7 === void 0 ? void 0 : (_item$overview7$conte = _item$overview7.content.find(function (i) {
-                            return i.name === "Ngày hết hạn:";
-                          })) === null || _item$overview7$conte === void 0 ? void 0 : _item$overview7$conte.content
-                        });
-                      case 20:
-                        _context.next = 22;
-                        return _models["default"].User.create({
-                          id: userId,
-                          name: item === null || item === void 0 ? void 0 : (_item$contact = item.contact) === null || _item$contact === void 0 ? void 0 : (_item$contact$content = _item$contact.content.find(function (i) {
-                            return i.name === "Liên hệ:";
-                          })) === null || _item$contact$content === void 0 ? void 0 : _item$contact$content.content,
-                          password: hashPassword("123456"),
-                          phone: item === null || item === void 0 ? void 0 : (_item$contact2 = item.contact) === null || _item$contact2 === void 0 ? void 0 : (_item$contact2$conten = _item$contact2.content.find(function (i) {
-                            return i.name === "Điện thoại:";
-                          })) === null || _item$contact2$conten === void 0 ? void 0 : _item$contact2$conten.content,
-                          zalo: item === null || item === void 0 ? void 0 : (_item$contact3 = item.contact) === null || _item$contact3 === void 0 ? void 0 : (_item$contact3$conten = _item$contact3.content.find(function (i) {
-                            return i.name === "Zalo";
-                          })) === null || _item$contact3$conten === void 0 ? void 0 : _item$contact3$conten.content
-                        });
-                      case 22:
-                      case "end":
-                        return _context.stop();
-                    }
-                  }, _callee);
-                }));
-                return function (_x) {
-                  return _ref2.apply(this, arguments);
-                };
-              }());
-            });
-            // console.log(provinceCodes);
-            provinceCodes === null || provinceCodes === void 0 ? void 0 : provinceCodes.forEach( /*#__PURE__*/function () {
-              var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(item) {
-                return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-                  while (1) switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return _models["default"].Province.create(item);
-                    case 2:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }, _callee2);
-              }));
-              return function (_x2) {
-                return _ref3.apply(this, arguments);
-              };
-            }());
-            labelCodes === null || labelCodes === void 0 ? void 0 : labelCodes.forEach( /*#__PURE__*/function () {
+          _context6.prev = 0;
+          provinceCodes = [];
+          labelCodes = [];
+          _context6.next = 5;
+          return _models["default"].Category.bulkCreate(categories);
+        case 5:
+          _data.dataPrice.forEach( /*#__PURE__*/function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(item, index) {
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return _models["default"].Price.create({
+                      code: item.code,
+                      value: item.value,
+                      order: index + 1
+                    });
+                  case 2:
+                  case "end":
+                    return _context.stop();
+                }
+              }, _callee);
+            }));
+            return function (_x, _x2) {
+              return _ref2.apply(this, arguments);
+            };
+          }());
+          _data.dataArea.forEach( /*#__PURE__*/function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(item, index) {
+              return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                while (1) switch (_context2.prev = _context2.next) {
+                  case 0:
+                    _context2.next = 2;
+                    return _models["default"].Area.create({
+                      code: item.code,
+                      value: item.value,
+                      order: index + 1
+                    });
+                  case 2:
+                  case "end":
+                    return _context2.stop();
+                }
+              }, _callee2);
+            }));
+            return function (_x3, _x4) {
+              return _ref3.apply(this, arguments);
+            };
+          }());
+          dataBody.forEach(function (cate) {
+            cate.body.forEach( /*#__PURE__*/function () {
               var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(item) {
+                var _item$header, _item$header$class, _item$header2, _item$header2$class, _item$header2$class$c, _item$header3, _item$header3$address, _item$header3$address2, _item$header4, _item$header4$address, _item$header4$address2, _item$mainContent, _item$header5, _item$header5$attribu, _item$header6, _item$header6$attribu, _item$header7, _item$header8, _item$header9, _dataArea$find, _dataPrice$find, _item$header10, _item$header10$attrib, _item$header11, _item$header11$attrib, _item$header12, _item$header12$attrib, _item$header13, _item$header13$attrib, _item$header14, _item$header14$attrib, _item$header15, _item$header15$attrib, _item$overview, _item$overview$conten, _item$overview2, _item$overview2$conte, _item$overview3, _item$overview3$conte, _item$overview4, _item$overview4$conte, _item$overview5, _item$overview5$conte, _item$overview6, _item$overview6$conte, _item$overview7, _item$overview7$conte, _item$contact, _item$contact$content, _item$contact2, _item$contact2$conten, _item$contact3, _item$contact3$conten;
+                var postId, labelCode, provinceCode, attributesId, userId, imagesId, overviewId, desc, currentArea, currentPrice;
                 return _regeneratorRuntime().wrap(function _callee3$(_context3) {
                   while (1) switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context3.next = 2;
-                      return _models["default"].Label.create(item);
-                    case 2:
+                      postId = (0, _uuid.v4)();
+                      labelCode = (0, _generateCode["default"])(item === null || item === void 0 ? void 0 : (_item$header = item.header) === null || _item$header === void 0 ? void 0 : (_item$header$class = _item$header["class"]) === null || _item$header$class === void 0 ? void 0 : _item$header$class.classType).trim();
+                      (labelCodes === null || labelCodes === void 0 ? void 0 : labelCodes.every(function (item) {
+                        return (item === null || item === void 0 ? void 0 : item.code) !== labelCode;
+                      })) && labelCodes.push({
+                        code: labelCode,
+                        value: item === null || item === void 0 ? void 0 : (_item$header2 = item.header) === null || _item$header2 === void 0 ? void 0 : (_item$header2$class = _item$header2["class"]) === null || _item$header2$class === void 0 ? void 0 : (_item$header2$class$c = _item$header2$class.classType) === null || _item$header2$class$c === void 0 ? void 0 : _item$header2$class$c.trim()
+                      });
+                      provinceCode = (0, _generateCode["default"])(item === null || item === void 0 ? void 0 : (_item$header3 = item.header) === null || _item$header3 === void 0 ? void 0 : (_item$header3$address = _item$header3.address) === null || _item$header3$address === void 0 ? void 0 : (_item$header3$address2 = _item$header3$address.split(",")) === null || _item$header3$address2 === void 0 ? void 0 : _item$header3$address2.slice(-1)[0]).trim();
+                      (provinceCodes === null || provinceCodes === void 0 ? void 0 : provinceCodes.every(function (item) {
+                        return (item === null || item === void 0 ? void 0 : item.code) !== provinceCode;
+                      })) && provinceCodes.push({
+                        code: provinceCode,
+                        value: item === null || item === void 0 ? void 0 : (_item$header4 = item.header) === null || _item$header4 === void 0 ? void 0 : (_item$header4$address = _item$header4.address) === null || _item$header4$address === void 0 ? void 0 : (_item$header4$address2 = _item$header4$address.split(",")) === null || _item$header4$address2 === void 0 ? void 0 : _item$header4$address2.slice(-1)[0].trim()
+                      });
+                      attributesId = (0, _uuid.v4)();
+                      userId = (0, _uuid.v4)();
+                      imagesId = (0, _uuid.v4)();
+                      overviewId = (0, _uuid.v4)();
+                      desc = JSON.stringify(item === null || item === void 0 ? void 0 : (_item$mainContent = item.mainContent) === null || _item$mainContent === void 0 ? void 0 : _item$mainContent.content);
+                      currentArea = (0, _common.getNumberFromString)(item === null || item === void 0 ? void 0 : (_item$header5 = item.header) === null || _item$header5 === void 0 ? void 0 : (_item$header5$attribu = _item$header5.attributes) === null || _item$header5$attribu === void 0 ? void 0 : _item$header5$attribu.acreage);
+                      currentPrice = (0, _common.getNumberFromString)(item === null || item === void 0 ? void 0 : (_item$header6 = item.header) === null || _item$header6 === void 0 ? void 0 : (_item$header6$attribu = _item$header6.attributes) === null || _item$header6$attribu === void 0 ? void 0 : _item$header6$attribu.price);
+                      _context3.next = 14;
+                      return _models["default"].Post.create({
+                        id: postId,
+                        title: item === null || item === void 0 ? void 0 : (_item$header7 = item.header) === null || _item$header7 === void 0 ? void 0 : _item$header7.title,
+                        star: item === null || item === void 0 ? void 0 : (_item$header8 = item.header) === null || _item$header8 === void 0 ? void 0 : _item$header8.star,
+                        labelCode: labelCode,
+                        address: item === null || item === void 0 ? void 0 : (_item$header9 = item.header) === null || _item$header9 === void 0 ? void 0 : _item$header9.address,
+                        attributesId: attributesId,
+                        categoryCode: cate.code,
+                        description: desc,
+                        userId: userId,
+                        overviewId: overviewId,
+                        imagesId: imagesId,
+                        areaCode: (_dataArea$find = _data.dataArea.find(function (area) {
+                          return area.max > currentArea && area.min <= currentArea;
+                        })) === null || _dataArea$find === void 0 ? void 0 : _dataArea$find.code,
+                        priceCode: (_dataPrice$find = _data.dataPrice.find(function (area) {
+                          return area.max > currentPrice && area.min <= currentPrice;
+                        })) === null || _dataPrice$find === void 0 ? void 0 : _dataPrice$find.code,
+                        provinceCode: provinceCode,
+                        priceNumber: (0, _common.getNumberFromStringV2)(item === null || item === void 0 ? void 0 : (_item$header10 = item.header) === null || _item$header10 === void 0 ? void 0 : (_item$header10$attrib = _item$header10.attributes) === null || _item$header10$attrib === void 0 ? void 0 : _item$header10$attrib.price),
+                        areaNumber: (0, _common.getNumberFromStringV2)(item === null || item === void 0 ? void 0 : (_item$header11 = item.header) === null || _item$header11 === void 0 ? void 0 : (_item$header11$attrib = _item$header11.attributes) === null || _item$header11$attrib === void 0 ? void 0 : _item$header11$attrib.acreage)
+                      });
+                    case 14:
+                      _context3.next = 16;
+                      return _models["default"].Attribute.create({
+                        id: attributesId,
+                        price: item === null || item === void 0 ? void 0 : (_item$header12 = item.header) === null || _item$header12 === void 0 ? void 0 : (_item$header12$attrib = _item$header12.attributes) === null || _item$header12$attrib === void 0 ? void 0 : _item$header12$attrib.price,
+                        acreage: item === null || item === void 0 ? void 0 : (_item$header13 = item.header) === null || _item$header13 === void 0 ? void 0 : (_item$header13$attrib = _item$header13.attributes) === null || _item$header13$attrib === void 0 ? void 0 : _item$header13$attrib.acreage,
+                        published: item === null || item === void 0 ? void 0 : (_item$header14 = item.header) === null || _item$header14 === void 0 ? void 0 : (_item$header14$attrib = _item$header14.attributes) === null || _item$header14$attrib === void 0 ? void 0 : _item$header14$attrib.published,
+                        hashtag: item === null || item === void 0 ? void 0 : (_item$header15 = item.header) === null || _item$header15 === void 0 ? void 0 : (_item$header15$attrib = _item$header15.attributes) === null || _item$header15$attrib === void 0 ? void 0 : _item$header15$attrib.hashtag
+                      });
+                    case 16:
+                      _context3.next = 18;
+                      return _models["default"].Image.create({
+                        id: imagesId,
+                        image: JSON.stringify(item === null || item === void 0 ? void 0 : item.images)
+                      });
+                    case 18:
+                      _context3.next = 20;
+                      return _models["default"].Overview.create({
+                        id: overviewId,
+                        code: item === null || item === void 0 ? void 0 : (_item$overview = item.overview) === null || _item$overview === void 0 ? void 0 : (_item$overview$conten = _item$overview.content.find(function (i) {
+                          return i.name === "Mã tin:";
+                        })) === null || _item$overview$conten === void 0 ? void 0 : _item$overview$conten.content,
+                        area: item === null || item === void 0 ? void 0 : (_item$overview2 = item.overview) === null || _item$overview2 === void 0 ? void 0 : (_item$overview2$conte = _item$overview2.content.find(function (i) {
+                          return i.name === "Khu vực";
+                        })) === null || _item$overview2$conte === void 0 ? void 0 : _item$overview2$conte.content,
+                        type: item === null || item === void 0 ? void 0 : (_item$overview3 = item.overview) === null || _item$overview3 === void 0 ? void 0 : (_item$overview3$conte = _item$overview3.content.find(function (i) {
+                          return i.name === "Loại tin rao:";
+                        })) === null || _item$overview3$conte === void 0 ? void 0 : _item$overview3$conte.content,
+                        target: item === null || item === void 0 ? void 0 : (_item$overview4 = item.overview) === null || _item$overview4 === void 0 ? void 0 : (_item$overview4$conte = _item$overview4.content.find(function (i) {
+                          return i.name === "Đối tượng thuê:";
+                        })) === null || _item$overview4$conte === void 0 ? void 0 : _item$overview4$conte.content,
+                        bonus: item === null || item === void 0 ? void 0 : (_item$overview5 = item.overview) === null || _item$overview5 === void 0 ? void 0 : (_item$overview5$conte = _item$overview5.content.find(function (i) {
+                          return i.name === "Gói tin:";
+                        })) === null || _item$overview5$conte === void 0 ? void 0 : _item$overview5$conte.content,
+                        created: item === null || item === void 0 ? void 0 : (_item$overview6 = item.overview) === null || _item$overview6 === void 0 ? void 0 : (_item$overview6$conte = _item$overview6.content.find(function (i) {
+                          return i.name === "Ngày đăng:";
+                        })) === null || _item$overview6$conte === void 0 ? void 0 : _item$overview6$conte.content,
+                        expired: item === null || item === void 0 ? void 0 : (_item$overview7 = item.overview) === null || _item$overview7 === void 0 ? void 0 : (_item$overview7$conte = _item$overview7.content.find(function (i) {
+                          return i.name === "Ngày hết hạn:";
+                        })) === null || _item$overview7$conte === void 0 ? void 0 : _item$overview7$conte.content
+                      });
+                    case 20:
+                      _context3.next = 22;
+                      return _models["default"].User.create({
+                        id: userId,
+                        name: item === null || item === void 0 ? void 0 : (_item$contact = item.contact) === null || _item$contact === void 0 ? void 0 : (_item$contact$content = _item$contact.content.find(function (i) {
+                          return i.name === "Liên hệ:";
+                        })) === null || _item$contact$content === void 0 ? void 0 : _item$contact$content.content,
+                        password: hashPassword("123456"),
+                        phone: item === null || item === void 0 ? void 0 : (_item$contact2 = item.contact) === null || _item$contact2 === void 0 ? void 0 : (_item$contact2$conten = _item$contact2.content.find(function (i) {
+                          return i.name === "Điện thoại:";
+                        })) === null || _item$contact2$conten === void 0 ? void 0 : _item$contact2$conten.content,
+                        zalo: item === null || item === void 0 ? void 0 : (_item$contact3 = item.contact) === null || _item$contact3 === void 0 ? void 0 : (_item$contact3$conten = _item$contact3.content.find(function (i) {
+                          return i.name === "Zalo";
+                        })) === null || _item$contact3$conten === void 0 ? void 0 : _item$contact3$conten.content
+                      });
+                    case 22:
                     case "end":
                       return _context3.stop();
                   }
                 }, _callee3);
               }));
-              return function (_x3) {
+              return function (_x5) {
                 return _ref4.apply(this, arguments);
               };
             }());
-          } catch (error) {
-            console.log(error);
-          }
-        case 1:
+          });
+          // console.log(provinceCodes);
+          provinceCodes === null || provinceCodes === void 0 ? void 0 : provinceCodes.forEach( /*#__PURE__*/function () {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(item) {
+              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                while (1) switch (_context4.prev = _context4.next) {
+                  case 0:
+                    _context4.next = 2;
+                    return _models["default"].Province.create(item);
+                  case 2:
+                  case "end":
+                    return _context4.stop();
+                }
+              }, _callee4);
+            }));
+            return function (_x6) {
+              return _ref5.apply(this, arguments);
+            };
+          }());
+          labelCodes === null || labelCodes === void 0 ? void 0 : labelCodes.forEach( /*#__PURE__*/function () {
+            var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(item) {
+              return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+                while (1) switch (_context5.prev = _context5.next) {
+                  case 0:
+                    _context5.next = 2;
+                    return _models["default"].Label.create(item);
+                  case 2:
+                  case "end":
+                    return _context5.stop();
+                }
+              }, _callee5);
+            }));
+            return function (_x7) {
+              return _ref6.apply(this, arguments);
+            };
+          }());
+          _context6.next = 15;
+          break;
+        case 12:
+          _context6.prev = 12;
+          _context6.t0 = _context6["catch"](0);
+          console.log(_context6.t0);
+        case 15:
         case "end":
-          return _context4.stop();
+          return _context6.stop();
       }
-    }, _callee4);
+    }, _callee6, null, [[0, 12]]);
   }));
   return function insertService() {
     return _ref.apply(this, arguments);
   };
 }();
+// export const createPricesAndAreas = async () => {
+//   try {
+//     dataPrice.forEach(async (item, index) => {
+//       await db.Price.create({
+//         code: item.code,
+//         value: item.value,
+//         order: index + 1,
+//       });
+//     });
+//     dataArea.forEach(async (item, index) => {
+//       await db.Area.create({
+//         code: item.code,
+//         value: item.value,
+//         order: index + 1,
+//       });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 exports.insertService = insertService;
-var createPricesAndAreas = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
-    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-      while (1) switch (_context7.prev = _context7.next) {
-        case 0:
-          try {
-            _data.dataPrice.forEach( /*#__PURE__*/function () {
-              var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(item, index) {
-                return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-                  while (1) switch (_context5.prev = _context5.next) {
-                    case 0:
-                      _context5.next = 2;
-                      return _models["default"].Price.create({
-                        code: item.code,
-                        value: item.value,
-                        order: index + 1
-                      });
-                    case 2:
-                    case "end":
-                      return _context5.stop();
-                  }
-                }, _callee5);
-              }));
-              return function (_x4, _x5) {
-                return _ref6.apply(this, arguments);
-              };
-            }());
-            _data.dataArea.forEach( /*#__PURE__*/function () {
-              var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(item, index) {
-                return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-                  while (1) switch (_context6.prev = _context6.next) {
-                    case 0:
-                      _context6.next = 2;
-                      return _models["default"].Area.create({
-                        code: item.code,
-                        value: item.value,
-                        order: index + 1
-                      });
-                    case 2:
-                    case "end":
-                      return _context6.stop();
-                  }
-                }, _callee6);
-              }));
-              return function (_x6, _x7) {
-                return _ref7.apply(this, arguments);
-              };
-            }());
-          } catch (err) {
-            console.log(err);
-          }
-        case 1:
-        case "end":
-          return _context7.stop();
-      }
-    }, _callee7);
-  }));
-  return function createPricesAndAreas() {
-    return _ref5.apply(this, arguments);
-  };
-}();
-exports.createPricesAndAreas = createPricesAndAreas;
