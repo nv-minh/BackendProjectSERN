@@ -15,6 +15,16 @@ const customizeConfig = {
   // port: process.env.DB_PORT,
   dialect: process.env.DB_DIALECT,
   logging: false,
+  protocol: "postgres",
+
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+    connectTimeout: 60000, // 60 seconds
+    requestTimeout: 60000, // 60 seconds,
+  },
   query: {
     raw: true,
   },

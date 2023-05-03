@@ -8,6 +8,7 @@ import chothuephongtro from "../../data/chothuephongtro.json";
 import generateCode from "../ultis/generateCode";
 import { dataPrice, dataArea } from "../ultis/data";
 import { getNumberFromString, getNumberFromStringV2 } from "../ultis/common";
+
 require("dotenv").config();
 const dataBody = [
   {
@@ -28,6 +29,37 @@ const dataBody = [
   },
 ];
 
+const categories = [
+  {
+    code: "CTCH",
+    value: "Cho thuê căn hộ",
+    header: "Cho Thuê Căn Hộ Chung Cư, Giá Rẻ, Mới Nhất 2023",
+    subheader:
+      "Cho thuê căn hộ - Kênh đăng tin cho thuê căn hộ số 1: giá rẻ, chính chủ, đầy đủ tiện nghi. Cho thuê chung cư với nhiều mức giá, diện tích cho thuê khác nhau.",
+  },
+  {
+    code: "CTMB",
+    value: "Cho thuê mặt bằng",
+    header:
+      "Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot, Mới Nhất 2023",
+    subheader:
+      'Cho Thuê Mặt Bằng, Cho Thuê Văn Phòng, Cửa Hàng, Kiot, Mới Nhất 2022", "Cho thuê mặt bằng - Kênh đăng tin cho thuê mặt bằng, cho thuê cửa hàng, cho thuê kiot số 1: giá rẻ, mặt tiền, khu đông dân cư, phù hợp kinh doanh.',
+  },
+  {
+    code: "CTPT",
+    value: "Cho thuê phòng trọ",
+    header: "Cho Thuê Phòng Trọ, Giá Rẻ, Tiện Nghi, Mới Nhất 2023",
+    subheader:
+      'Cho Thuê Phòng Trọ, Giá Rẻ, Tiện Nghi, Mới Nhất 2022", "Cho thuê phòng trọ - Kênh thông tin số 1 về phòng trọ giá rẻ, phòng trọ sinh viên, phòng trọ cao cấp mới nhất năm 2022. Tất cả nhà trọ cho thuê giá tốt nhất tại Việt Nam.',
+  },
+  {
+    code: "NCT",
+    value: "Nhà cho thuê",
+    header: "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2023",
+    subheader:
+      "Cho thuê nhà nguyên căn - Kênh đăng tin cho thuê nhà số 1: giá rẻ, chính chủ, miễn trung gian, đầy đủ tiện nghi, mức giá, diện tích cho thuê khác nhau.",
+  },
+];
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
 
@@ -35,6 +67,21 @@ export const insertService = async () => {
   try {
     const provinceCodes = [];
     const labelCodes = [];
+    await db.Category.bulkCreate(categories);
+    dataPrice.forEach(async (item, index) => {
+      await db.Price.create({
+        code: item.code,
+        value: item.value,
+        order: index + 1,
+      });
+    });
+    dataArea.forEach(async (item, index) => {
+      await db.Area.create({
+        code: item.code,
+        value: item.value,
+        order: index + 1,
+      });
+    });
     dataBody.forEach((cate) => {
       cate.body.forEach(async (item) => {
         let postId = v4();
@@ -135,23 +182,23 @@ export const insertService = async () => {
     console.log(error);
   }
 };
-export const createPricesAndAreas = async () => {
-  try {
-    dataPrice.forEach(async (item, index) => {
-      await db.Price.create({
-        code: item.code,
-        value: item.value,
-        order: index + 1,
-      });
-    });
-    dataArea.forEach(async (item, index) => {
-      await db.Area.create({
-        code: item.code,
-        value: item.value,
-        order: index + 1,
-      });
-    });
-  } catch (err) {
-    console.log(err);
-  }
-};
+// export const createPricesAndAreas = async () => {
+//   try {
+//     dataPrice.forEach(async (item, index) => {
+//       await db.Price.create({
+//         code: item.code,
+//         value: item.value,
+//         order: index + 1,
+//       });
+//     });
+//     dataArea.forEach(async (item, index) => {
+//       await db.Area.create({
+//         code: item.code,
+//         value: item.value,
+//         order: index + 1,
+//       });
+//     });
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
