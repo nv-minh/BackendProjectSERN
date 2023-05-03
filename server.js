@@ -1,21 +1,20 @@
-import cors from "cors";
-
 const express = require("express");
 require("dotenv").config();
 import initRouter from "./src/routes/index";
 import connectDataBase from "./src/config/connectDB";
 
+const cors = require('cors');
 const app = express();
 
 app.use(
-  cors({
-    origin: "/*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
+    cors({
+        origin: "https://rentmatch-kohl.vercel.app/",
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    })
 );
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 initRouter(app);
 connectDataBase();
