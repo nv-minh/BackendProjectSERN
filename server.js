@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
     cors({
-        origin: "https://rentmatch-kohl.vercel.app/",
+        origin: "https://rentmatch-kohl.vercel.app",
         methods: ["GET", "POST", "PUT", "DELETE"],
     })
 );
