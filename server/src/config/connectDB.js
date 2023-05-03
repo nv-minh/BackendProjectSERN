@@ -3,9 +3,9 @@ require("dotenv").config();
 
 // Option 3: Passing parameters separately (other dialects)
 // const sequelize = new Sequelize("phongtro123", "root", null, {
-//   host: process.env.HOST,
-//   dialect: process.env.DIALECT,
-//   port: process.env.PORT_SV,
+//   host: process.env.DB_HOST,
+//   dialect: process.env.DB_DIALECT,
+//   // port: process.env.PORT_SV,
 //   logging: false,
 // });
 
@@ -21,6 +21,12 @@ const sequelize = new Sequelize(
     logging: false,
     query: {
       raw: true,
+    },
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
     timezone: "+07:00",
   }
