@@ -1,0 +1,81 @@
+#version: "3.9"
+#services:
+#  db:
+#    image: mysql:8.0.26
+#    command: --default-authentication-plugin=mysql_native_password
+#    restart: always
+#    environment:
+#      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+#      MYSQL_ROOT_PASSWORD: ""
+#      MYSQL_DATABASE: phongtro123
+#    volumes:
+#      - /usr/server/node_modules
+#      - ./phongtro123.sql:/docker-entrypoint-initdb.d/phongtro123.sql
+#      - db_data:/var/lib/mysql
+#    ports:
+#      - "3306:3306"
+#    networks:
+#      my_network:
+#        ipv4_address: 172.20.128.2
+#
+#  app:
+#    build: .
+#    env_file:
+#      - .env
+#    ports:
+#      - "5000:5000"
+#    depends_on:
+#      - db
+#    environment:
+#      HOST: ${HOST}
+#      DIALECT: ${DIALECT}
+#      PORT_SV: ${PORT_SV}
+#      PORT: ${PORT}
+#      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+#      SECRET_GENERATE: ${SECRET_GENERATE}
+#      LIMIT: ${LIMIT}
+#      DB_HOST: 172.20.128.2
+#      DB_PORT: 3306
+#      DB_USER: root
+#      DB_PASSWORD: ""
+#      DB_NAME: phongtro123
+#
+#networks:
+#  my_network:
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 172.20.128.0/24
+#volumes:
+#  db_data:
+
+version: '3.8'
+services:
+  database-mysql:
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - ./phongtro123.sql:/docker-entrypoint-initdb.d/phongtro123.sql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_DATABASE: phongtro123
+    ports:
+      - '3307:3306'
+    expose:
+      - 3306
+
+  backend:
+    build:
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - DB_PORT=3306
+      - DB_HOST=database-mysql
+      - URL_REACT=http://localhost
+      # - DB_HOST=host.docker.internal
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+
