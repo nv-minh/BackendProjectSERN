@@ -38,7 +38,7 @@ export const getPostsLimitService = async (
         if (queryPrice || queryArea || categoryCode || provinceCode) {
             queries = {
                 ...query,
-                priceNumber: {[Op.between]: [queryPrice[0], queryPrice[1]]},
+                priceNumber: queryPrice ? {[Op.between]: [queryPrice[0], queryPrice[1]]} : undefined,
                 areaNumber: queryArea ? {[Op.between]: [queryArea[0], queryArea[1]]} : undefined,
                 categoryCode: categoryCode ? categoryCode : undefined,
                 provinceCode: provinceCode ? provinceCode : undefined,
