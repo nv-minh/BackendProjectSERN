@@ -1,4 +1,5 @@
 import * as postService from "../services/post";
+import {log} from "util";
 
 export const getPosts = async (req, res) => {
     try {

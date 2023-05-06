@@ -34,17 +34,19 @@ export const getPostsLimitService = async (
 ) => {
     try {
         let offset = !queryPage || +queryPage <= 1 ? 0 : +queryPage - 1;
-        const queries = {
-            ...query,
-            priceNumber: {[Op.between]: [queryPrice[0], queryPrice[1]]},
-            areaNumber: queryArea ? {[Op.between]: [queryArea[0], queryArea[1]]} : undefined,
-            categoryCode: categoryCode ? categoryCode : undefined,
-            provinceCode: provinceCode ? provinceCode : undefined,
-        };
-        Object.keys(queries).forEach(
-            (key) => queries[key] === undefined && delete queries[key]
-        );
-        console.log(queries)
+        let queries = null
+        if (queryPrice || queryArea || categoryCode || provinceCode) {
+            queries = {
+                ...query,
+                priceNumber: {[Op.between]: [queryPrice[0], queryPrice[1]]},
+                areaNumber: queryArea ? {[Op.between]: [queryArea[0], queryArea[1]]} : undefined,
+                categoryCode: categoryCode ? categoryCode : undefined,
+                provinceCode: provinceCode ? provinceCode : undefined,
+            };
+            Object.keys(queries).forEach(
+                (key) => queries[key] === undefined && delete queries[key]
+            );
+        }
         const response = await db.Post.findAndCountAll({
             where: queries,
             raw: true,
@@ -62,7 +64,6 @@ export const getPostsLimitService = async (
             ],
             attributes: ["id", "title", "star", "address", "description"],
         });
-        console.log(response.count)
         return {
             success: !!response,
             message: response ? "OKE" : "Getting posts is failed.",
