@@ -1,21 +1,23 @@
 import db from '../models'
 
 // GET CURRENT
-export const getOne = (id) => new Promise(async (resolve, reject) => {
+export const getOne = async (id) => {
     try {
         const response = await db.User.findOne({
-            where: { id },
+            where: {id},
             raw: true,
             attributes: {
                 exclude: ['password']
             }
         })
-        resolve({
-            err: response ? 0 : 1,
-            msg: response ? 'OK' : 'Failed to get provinces.',
-            response
-        })
+        if (response)
+            return {
+                success: true,
+                message: "OK",
+                user: response,
+            };
+        return false
     } catch (error) {
-        reject(error)
+        console.log(error)
     }
-})
+}

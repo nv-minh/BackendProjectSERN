@@ -1,13 +1,8 @@
 import * as postService from "../services/post";
-import {log} from "util";
 
 export const getPosts = async (req, res) => {
     try {
         const response = await postService.getPostsService();
-        // response.data.posts.images.image = JSON.parse(
-        //   response.data.posts.images.image
-        // );
-        // console.log(response);
         return res.status(200).json(response);
     } catch (error) {
         return res.status(500).json({
