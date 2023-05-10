@@ -3,20 +3,20 @@ require("dotenv").config();
 import initRouter from "./src/routes/index";
 import connectDataBase from "./src/config/connectDB";
 
-const cors = require('cors');
+const cors = require("cors");
 const app = express();
 
 app.use(
-    cors({
-        origin: 'http://localhost:3000',
-        credentials: true,            //access-control-allow-credentials:true
-        optionSuccessStatus: 200,
-        methods: ["GET", "POST", "PUT", "DELETE"],
-    })
+  cors({
+    origin: "https://rentmatch-kohl.vercel.app/",
+    credentials: true, //access-control-allow-credentials:true
+    optionSuccessStatus: 200,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
 );
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 initRouter(app);
 connectDataBase();
