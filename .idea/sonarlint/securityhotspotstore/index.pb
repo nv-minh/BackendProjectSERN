@@ -9,3 +9,23 @@ H
 src/services/province.js,b\6\b64ebc7e5bbd8df17e7e29ef0d08f245ee9d93b2
 C
 data/provinces.json,d\5\d5ecb8efd888690b0700cd6c39b1e3800173280e
+G
+src/controllers/post.js,4\8\482257f45f8646121c1f3aef2dca46e3f9d68d0f
+F
+src/services/insert.js,f\0\f08018f65419fcafc063daa131bc645a56834965
+D
+src/services/post.js,9\3\93c4252ae97d20c31d5549a3504a92b6de8af031
+4
+.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+D
+src/config/config.js,c\3\c3b21e8453b2cc40e463b2194433df873d54149b
+G
+src/config/connectDB.js,a\9\a967c402985fe04f839949b87f8cb04a6fa3b5bf
+<
+package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
+C
+src/models/index.js,0\d\0df0c9911db8fdcf80d440f34095792f833059d0
+C
+src/routes/index.js,a\2\a2809aa693b8ad396fe7635ecf4652e70593ee27
+9
+	server.js,d\c\dc60ea9ee1ff6246bf342463277d5b914db2883d
