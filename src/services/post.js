@@ -1,8 +1,6 @@
 import db from "../models";
 import { v4 } from "uuid";
 import generateCode from "../ultis/generateCode";
-import { dataArea, dataPrice } from "../ultis/data";
-import { getNumberFromStringV2 } from "../ultis/common";
 import moment from "moment";
 import generateDate from "../ultis/generateDate";
 
@@ -76,11 +74,19 @@ export const getPostsLimitService = async (
       include: [
         { model: db.Image, as: "images", attributes: ["image"] },
         {
+          model: db.Overview,
+          as: "overviews",
+        },
+        {
           model: db.Attribute,
           as: "attributes",
           attributes: ["price", "acreage", "published", "hashtag"],
         },
-        { model: db.User, as: "user", attributes: ["name", "zalo", "phone"] },
+        {
+          model: db.User,
+          as: "user",
+          attributes: ["name", "zalo", "phone", "avatar"],
+        },
       ],
       attributes: ["id", "title", "star", "address", "description"],
     });

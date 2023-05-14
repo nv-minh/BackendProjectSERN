@@ -9,10 +9,6 @@ D
 src/config/config.js,c\3\c3b21e8453b2cc40e463b2194433df873d54149b
 G
 src/config/connectDB.js,a\9\a967c402985fe04f839949b87f8cb04a6fa3b5bf
-8
-.babelrc,b\c\bcac7464521b8c19a2372c739f6dc9e9ab7dfc80
-B
-src/routes/user.js,9\3\934e382c74ab750a4f5bf63011fc52b1cd205ac6
 <
 package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
 4
@@ -33,8 +29,6 @@ D
 src/routes/insert.js,5\a\5af3efa45ee7914364d939675391c032116d60b9
 C
 src/routes/index.js,a\2\a2809aa693b8ad396fe7635ecf4652e70593ee27
-9
-	server.js,d\c\dc60ea9ee1ff6246bf342463277d5b914db2883d
 F
 src/models/overview.js,7\9\79049d90fa7b96432aa86bb6134bc503161102b2
 F
