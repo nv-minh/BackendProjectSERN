@@ -22,15 +22,15 @@ const sequelize = new Sequelize(
     query: {
       raw: true,
     },
-    protocol: process.env.DB_DIALECT,
-    dialectOptions: {
-      connectTimeout: 60000, // 60 seconds
-      requestTimeout: 60000, // 60 seconds
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
+    // protocol: process.env.DB_DIALECT,
+    // dialectOptions: {
+    //   connectTimeout: 60000, // 60 seconds
+    //   requestTimeout: 60000, // 60 seconds
+    //   ssl: {
+    //     require: true,
+    //     rejectUnauthorized: false,
+    //   },
+    // },
     timezone: "+07:00",
   }
 );

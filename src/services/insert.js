@@ -173,7 +173,6 @@ export const insertService = async () => {
         });
       });
     });
-    // console.log(provinceCodes);
     for (const item of provinceCodes) {
       await db.Province.create(item);
     }

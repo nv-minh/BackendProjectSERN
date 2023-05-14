@@ -15,11 +15,8 @@ module.exports = (sequelize, DataTypes) => {
 
   Province.init(
     {
-      name: DataTypes.STRING,
-      division_type: DataTypes.STRING,
-      codename: DataTypes.STRING,
-      phone_code: DataTypes.STRING,
-      province_code: DataTypes.STRING,
+      code: DataTypes.STRING,
+      value: DataTypes.STRING,
     },
     {
       sequelize,

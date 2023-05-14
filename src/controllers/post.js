@@ -1,4 +1,5 @@
 import * as postService from "../services/post";
+import { updatePostService } from "../services/post";
 
 export const getPosts = async (req, res) => {
   try {
@@ -41,7 +42,25 @@ export const getPostsLimit = async (req, res) => {
 };
 export const getNewPosts = async (req, res) => {
   try {
-    const response = await postService.getPostsService();
+    const response = await postService.getNewPostService();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed at post controller: " + error,
+    });
+  }
+};
+export const getPostLimitAdmin = async (req, res) => {
+  const { page } = req.query;
+  const { id } = req.user;
+  try {
+    if (!id)
+      return res.status(400).json({
+        error: 1,
+        message: "Not found UserId",
+      });
+    const response = await postService.getPostLimitAdminService(page, id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({
@@ -72,6 +91,41 @@ export const createPost = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Failed at post controller: " + error,
+    });
+  }
+};
+export const updatePost = async (req, res) => {
+  const { postId, ...payload } = req.body;
+  try {
+    if (!postId)
+      return res.status(400).json({
+        error: 1,
+        message: "Not found postId",
+      });
+    const response = await postService.updatePostService(postId, payload);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed at update post controller: " + error,
+    });
+  }
+};
+export const deletePost = async (req, res) => {
+  const { postId } = req.query;
+  console.log(req);
+  try {
+    if (!postId)
+      return res.status(400).json({
+        error: 1,
+        message: "Not found postId",
+      });
+    const response = await postService.deletePostService(postId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed at delete post controller: " + error,
     });
   }
 };

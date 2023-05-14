@@ -8,20 +8,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoIncrement: true,
       },
-
-      name: {
+      code: {
         type: Sequelize.STRING,
       },
-      division_type: {
-        type: Sequelize.STRING,
-      },
-      codename: {
-        type: Sequelize.STRING,
-      },
-      phone_code: {
-        type: Sequelize.STRING,
-      },
-      province_code: {
+      value: {
         type: Sequelize.STRING,
       },
       createdAt: {

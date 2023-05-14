@@ -4,6 +4,7 @@ import generateCode from "../ultis/generateCode";
 import { dataArea, dataPrice } from "../ultis/data";
 import { getNumberFromStringV2 } from "../ultis/common";
 import moment from "moment";
+import generateDate from "../ultis/generateDate";
 
 const { Op } = require("sequelize");
 
@@ -127,6 +128,57 @@ export const getNewPostService = async () => {
     return error;
   }
 };
+export const getPostLimitAdminService = async (page, id) => {
+  try {
+    let offset = !page || +page <= 1 ? 0 : +page - 1;
+    const queries = { userId: id };
+    const response = await db.Post.findAndCountAll({
+      where: queries,
+      raw: true,
+      nest: true,
+      offset: offset,
+      order: [["createdAt", "DESC"]],
+      limit: 50,
+      include: [
+        { model: db.Image, as: "images", attributes: ["image", "id"] },
+        {
+          model: db.Attribute,
+          as: "attributes",
+          attributes: [
+            "price",
+            "acreage",
+            "published",
+            "hashtag",
+            "createdAt",
+            "id",
+          ],
+        },
+        {
+          model: db.Overview,
+          as: "overviews",
+        },
+      ],
+      attributes: [
+        "id",
+        "title",
+        "star",
+        "categoryCode",
+        "priceNumber",
+        "areaNumber",
+        "createdAt",
+        "description",
+        "address",
+      ],
+    });
+    return {
+      success: !!response,
+      message: response ? "OK" : "Getting posts is failed.",
+      posts: response,
+    };
+  } catch (error) {
+    return error;
+  }
+};
 export const createPostService = async (body, userId) => {
   try {
     const attributesId = v4();
@@ -134,7 +186,7 @@ export const createPostService = async (body, userId) => {
     const overviewId = v4();
     const labelCode = generateCode(body.label);
     const hashtag = `#${Math.floor(Math.random() * Math.pow(10, 6))}`;
-    const currentDate = new Date();
+    const currentDate = generateDate();
 
     const response = await db.Post.create({
       id: v4(),
@@ -176,8 +228,8 @@ export const createPostService = async (body, userId) => {
       type: body?.category,
       target: body?.target,
       bonus: "Tin thưởng",
-      created: currentDate,
-      expired: currentDate.setDate(currentDate.getDate() + 10),
+      created: currentDate.today,
+      expired: currentDate.expireDay,
     });
     await db.Province.findOrCreate({
       where: {
@@ -210,5 +262,96 @@ export const createPostService = async (body, userId) => {
     };
   } catch (error) {
     return error;
+  }
+};
+
+export const updatePostService = async (postId, payload) => {
+  try {
+    const response = await db.Post.update(
+      {
+        title: payload.title,
+        address: payload.address,
+        categoryCode: payload.categoryCode,
+        priceCode: payload.priceCode,
+        areaCode: payload.areaCode,
+        provinceCode: payload.provinceCode,
+        description: payload.description,
+        priceNumber: payload.priceNumber,
+        areaNumber: payload.areaNumber,
+        labelCode: generateCode(payload.label),
+      },
+      {
+        where: { id: postId },
+      }
+    );
+    await db.Attribute.update(
+      {
+        price:
+          +payload.priceNumber < 1
+            ? `${+payload.priceNumber * 1000000} đồng/tháng`
+            : `${payload.priceNumber} triệu/tháng`,
+        acreage: `${payload.areaNumber} m2`,
+      },
+      {
+        where: { id: payload.attributesId },
+      }
+    );
+    await db.Image.update(
+      {
+        image: JSON.stringify(payload.images),
+      },
+      {
+        where: { id: payload.imagesId },
+      }
+    );
+    await db.Overview.update(
+      {
+        area: payload.label,
+        type: payload?.category,
+        target: payload?.target,
+      },
+      {
+        where: { id: payload.overviewId },
+      }
+    );
+    await db.Province.update(
+      {
+        code: payload?.province?.includes("Thành phố")
+          ? generateCode(payload?.province?.replace("Thành phố ", ""))
+          : generateCode(payload?.province?.replace("Tỉnh ", "")),
+        value: payload?.province?.includes("Thành phố")
+          ? payload?.province?.replace("Thành phố ", "")
+          : payload?.province?.replace("Tỉnh ", ""),
+      },
+      {
+        where: {
+          [Op.or]: [
+            { value: payload?.province?.replace("Thành phố ", "") },
+            { value: payload?.province?.replace("Tỉnh ", "") },
+          ],
+        },
+      }
+    );
+    return {
+      success: !!response,
+      message: response ? "Updated successfully" : "Failed to update",
+      response,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const deletePostService = async (postId) => {
+  try {
+    const response = await db.Post.destroy({
+      where: { id: postId },
+    });
+    return {
+      success: !!response,
+      message: response ? "delete successfully" : "Failed to delete",
+      response,
+    };
+  } catch (error) {
+    console.log(error);
   }
 };
