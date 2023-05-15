@@ -1,20 +1,8 @@
 
-D
-src/services/auth.js,1\0\103ad4b94681b1c486fbb27d4e7ef2ba59949cd7
 H
 src/services/province.js,b\6\b64ebc7e5bbd8df17e7e29ef0d08f245ee9d93b2
 C
 data/provinces.json,d\5\d5ecb8efd888690b0700cd6c39b1e3800173280e
-D
-src/config/config.js,c\3\c3b21e8453b2cc40e463b2194433df873d54149b
-G
-src/config/connectDB.js,a\9\a967c402985fe04f839949b87f8cb04a6fa3b5bf
-<
-package.json,7\0\7030d0b2f71b999ff89a343de08c414af32fc93a
-4
-.env,3\c\3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
-C
-src/models/index.js,0\d\0df0c9911db8fdcf80d440f34095792f833059d0
 Q
 !src/migrations/create-province.js,7\5\75c880c6b7fe1dba56cca672c829f613aa99ce21
 F
@@ -35,3 +23,15 @@ F
 src/models/province.js,b\7\b72966a27589c61eb81c2e13ca7368fd3b20a3b4
 B
 src/routes/post.js,0\3\03a24a6d7bf35dc969a4765de37e9549a191e876
+G
+src/controllers/post.js,4\8\482257f45f8646121c1f3aef2dca46e3f9d68d0f
+B
+src/models/post.js,1\2\127b70206d00813bea41aeceb1f1c20336d12927
+8
+.babelrc,b\c\bcac7464521b8c19a2372c739f6dc9e9ab7dfc80
+B
+src/routes/user.js,9\3\934e382c74ab750a4f5bf63011fc52b1cd205ac6
+G
+src/controllers/user.js,6\b\6b728a9d4870b67196970a704dc04cae4d83dde2
+D
+src/services/user.js,e\5\e5e2c0a93d86cf45333255e1118f80b706eb8b51

@@ -85,7 +85,7 @@ export const getPostsLimitService = async (
         {
           model: db.User,
           as: "user",
-          attributes: ["name", "zalo", "phone", "avatar"],
+          attributes: ["name", "zalo", "phone", "avatar", "fbUrl"],
         },
       ],
       attributes: ["id", "title", "star", "address", "description"],

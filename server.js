@@ -8,7 +8,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://rentmatch-kohl.vercel.app",
     credentials: true, //access-control-allow-credentials:true
     optionSuccessStatus: 200,
     methods: ["GET", "POST", "PUT", "DELETE"],
